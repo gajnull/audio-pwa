@@ -7,8 +7,6 @@ import Start from './Components/Start';
 import Dialog from './Components/Dialog';
 
 
-
-
 /* const App2 = () => (
   <div className="App">
     <header className="App-header">
