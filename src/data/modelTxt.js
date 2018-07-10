@@ -1,5 +1,6 @@
 const model = {}
 
+// .then()
 model.loadLngt = (path) => {
   return new Promise( (resolve, reject) => {
     fetch(path)
@@ -7,14 +8,14 @@ model.loadLngt = (path) => {
         return response.text();
       })
       .then(function(txt) {
-        //let data = document.createDocumentFragment();          
-        let data = document.createElement('DIV');          
+        const data = document.createDocumentFragment();          
+        //let data = document.createElement('DIV');
         data.innerHTML = txt;
         resolve(data);
       })
       .catch( err => {
         reject(err);
-      }); 
+      });
     });
 };
 

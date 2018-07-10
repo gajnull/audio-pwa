@@ -1,29 +1,34 @@
 import React from 'react';
 import './Dialog.css';
 import modelTxt from '../data/modelTxt';
-import Exz from '../data/Exz';
+//import Exz from '../data/Exz';
 
 class Dialog extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { duration: ""};
     this.sound = new Audio('data/' + props.file.audio);
+    //this.sound.onloadedmetadata = () => { this.setState({duration: this.sound.duration}) };
+    this.data = null;
+
     this.playSnd = this.playSnd.bind(this);
     this.stopSnd = this.stopSnd.bind(this);
-    this.state = { duration: "",
-                   data: <p> Loading... </p> };
-    this.sound.onloadedmetadata = () => { this.setState({duration: this.sound.duration}) };
   }
 
   componentDidMount() {
-    modelTxt.loadLngt('data/' + this.props.file.txt).then(data => {
-      this.setState({ data });
-    });
+    modelTxt.loadLngt('data/' + this.props.file.txt)
+            .then(data => {
+              this.data = data;
+              const {before, current, after} =  modelTxt.getVw(data);
+              this.setState({ before, current, after })
+              //this.Vw = modelTxt.getVw(data); // {before, current, after}
+             });
   }
 
   componentWillUnmount() {
     this.sound.pause();
     this.sound.src = "";
-    
+    this.data = null;
   }
 
   playSnd(e) {
@@ -37,7 +42,7 @@ class Dialog extends React.Component {
 
   render() {
 
-   
+
     return (
       <div className="Dialog">
         <p className="before"> {this.props.ind} </p>
@@ -48,7 +53,6 @@ class Dialog extends React.Component {
         <button className="btn"  onClick={this.playSnd}>play</button>
         <button className="btn"  onClick={this.stopSnd}>stop</button>
         <p> Duration: {this.state.duration} </p>
-        <Exz data={this.state.data} />
       </div>
     );
   }
