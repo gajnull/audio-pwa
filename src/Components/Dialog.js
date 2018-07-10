@@ -1,5 +1,7 @@
 import React from 'react';
 import './Dialog.css';
+import modelTxt from '../data/modelTxt';
+import Exz from '../data/Exz';
 
 class Dialog extends React.Component {
   constructor(props) {
@@ -7,13 +9,21 @@ class Dialog extends React.Component {
     this.sound = new Audio('data/' + props.file.audio);
     this.playSnd = this.playSnd.bind(this);
     this.stopSnd = this.stopSnd.bind(this);
-    this.state = { duration: "" };
+    this.state = { duration: "",
+                   data: <p> Loading... </p> };
     this.sound.onloadedmetadata = () => { this.setState({duration: this.sound.duration}) };
+  }
+
+  componentDidMount() {
+    modelTxt.loadLngt('data/' + this.props.file.txt).then(data => {
+      this.setState({ data });
+    });
   }
 
   componentWillUnmount() {
     this.sound.pause();
     this.sound.src = "";
+    
   }
 
   playSnd(e) {
@@ -26,6 +36,8 @@ class Dialog extends React.Component {
   }
 
   render() {
+
+   
     return (
       <div className="Dialog">
         <p className="before"> {this.props.ind} </p>
@@ -36,6 +48,7 @@ class Dialog extends React.Component {
         <button className="btn"  onClick={this.playSnd}>play</button>
         <button className="btn"  onClick={this.stopSnd}>stop</button>
         <p> Duration: {this.state.duration} </p>
+        <Exz data={this.state.data} />
       </div>
     );
   }

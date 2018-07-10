@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import files from './data/data';
+import files from './data/metaData';
 import './reset.css';
 import './App.css';
 import Start from './Components/Start';
