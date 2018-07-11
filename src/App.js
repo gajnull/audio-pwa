@@ -38,8 +38,8 @@ class App extends React.Component {
 
   render() {
     let location = <p> Unknown stateApp </p>
-    if (this.state.stateApp === 'start') location = <Start files={files} selectDialog={this.selectDialog}/>;
-    if (this.state.stateApp === 'dialog') location = <Dialog ind={this.ind} file={files[this.ind]} gotoStart={this.gotoStart} />;
+    if (this.state.stateApp === 'start') location = <Start files={files} selectDialog={this.selectDialog} settings={settings} />;
+    if (this.state.stateApp === 'dialog') location = <Dialog ind={this.ind} file={files[this.ind]} gotoStart={this.gotoStart} settings={settings} />;
     return (
       <div className="App">
         <header className="App-header">
@@ -50,6 +50,13 @@ class App extends React.Component {
       </div>
     );
   }
+}
+
+const settings = {  // потом возможно сделаем членом класса App
+  countR: 1,
+  speed: 1,
+  pause: 1,
+  metod: "repeat"  // "repeate"/"all"/"demand"
 }
 
 export default App;

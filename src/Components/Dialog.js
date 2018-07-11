@@ -6,22 +6,26 @@ import modelTxt from '../data/modelTxt';
 class Dialog extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { duration: ""};
-    this.sound = new Audio('data/' + props.file.audio);
+    this.state = { duration: "",
+                   before: "",
+                   current: "",
+                   after: ""
+                 };
     //this.sound.onloadedmetadata = () => { this.setState({duration: this.sound.duration}) };
     this.data = null;
+    this.poz = 2; // потом будет this.poz = 2;
 
     this.playSnd = this.playSnd.bind(this);
     this.stopSnd = this.stopSnd.bind(this);
   }
 
   componentDidMount() {
+    this.sound = new Audio('data/' + this.props.file.audio);
     modelTxt.loadLngt('data/' + this.props.file.txt)
             .then(data => {
               this.data = data;
-              const {before, current, after} =  modelTxt.getVw(data);
+              const { before, current, after } =  modelTxt.getItems(data, this.poz);
               this.setState({ before, current, after })
-              //this.Vw = modelTxt.getVw(data); // {before, current, after}
              });
   }
 
@@ -52,7 +56,11 @@ class Dialog extends React.Component {
         <button className="btn"  onClick={this.props.gotoStart}>return</button>
         <button className="btn"  onClick={this.playSnd}>play</button>
         <button className="btn"  onClick={this.stopSnd}>stop</button>
-        <p> Duration: {this.state.duration} </p>
+        <div> Duration: {this.state.duration} </div>
+        <div> {this.state.before} </div>
+        <div> {this.state.current} </div>
+        <div> {this.state.after} </div>
+
       </div>
     );
   }
