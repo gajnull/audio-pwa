@@ -8,9 +8,10 @@ model.loadLngt = (path) => {
         return response.text();
       })
       .then(function(txt) {
-        //const data = document.createDocumentFragment();          
-        const data = document.createElement('DIV');
-        data.innerHTML = txt;
+        //const data = document.createDocumentFragment();
+        const elem = document.createElement('DIV');
+        elem.innerHTML = txt.replace(/__/g, "--").replace(/<br>/g, "__");
+        const data = extractData(elem)
         resolve(data);
       })
       .catch( err => {
@@ -19,26 +20,25 @@ model.loadLngt = (path) => {
     });
 };
 
-model.getItems = (data, poz) => {
+model.getItems = (data, poz) => (
+  {
+    before: data[poz-1],
+    current: data[poz],
+    after: data[poz+1]
+  });
 
-  let before = "", 
-      current = "",
-      after = "", 
-      _from = "", 
-      _to = "";
-  
-  const items = data.querySelectorAll('span');
-  before = items[poz-1].textContent;
-  current = items[poz].textContent;
-  after = items[poz+1].textContent;
 
-  return {
-    before,
-    current,
-    after,
-    _from,
-    _to
-  }
+function extractData(elem) {
+  const spans = elem.querySelectorAll('span');
+  const data = [];
+  spans.forEach( span => {
+    if (span.hasAttributes('from')) {
+      data.push({txt: span.textContent,
+                _from: span.hasAttributes('from'),
+                _to: span.hasAttributes('to') });
+    }
+  });
+  return data;
 }
 
 export default model;

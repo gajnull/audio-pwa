@@ -7,9 +7,9 @@ class Dialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = { duration: "",
-                   before: "",
-                   current: "",
-                   after: ""
+                   before: {txt: "", _from: "", _to: ""},
+                   current: {txt: "", _from: "", _to: ""},
+                   after: {txt: "", _from: "", _to: ""}
                  };
     //this.sound.onloadedmetadata = () => { this.setState({duration: this.sound.duration}) };
     this.data = null;
@@ -57,9 +57,9 @@ class Dialog extends React.Component {
         <button className="btn"  onClick={this.playSnd}>play</button>
         <button className="btn"  onClick={this.stopSnd}>stop</button>
         <div> Duration: {this.state.duration} </div>
-        <div> {this.state.before} </div>
-        <div> {this.state.current} </div>
-        <div> {this.state.after} </div>
+        <span> {this.state.before.txt} </span>
+        <span> {this.state.current.txt} </span>
+        <span> {this.state.after.txt} </span>
 
       </div>
     );
