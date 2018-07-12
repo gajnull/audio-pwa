@@ -1,4 +1,5 @@
 import React from 'react';
+import ItemDialog from './ItemDialog';
 import './Dialog.css';
 import modelTxt from '../data/modelTxt';
 //import Exz from '../data/Exz';
@@ -6,14 +7,18 @@ import modelTxt from '../data/modelTxt';
 class Dialog extends React.Component {
   constructor(props) {
     super(props);
+    
+    this.data = [];
+    this.poz = 0; // потом будет this.poz = 0;
+    const { before, current, after } =  modelTxt.getItems(this.data, this.poz);
+
     this.state = { duration: "",
-                   before: {txt: "", _from: "", _to: ""},
-                   current: {txt: "", _from: "", _to: ""},
-                   after: {txt: "", _from: "", _to: ""}
+                   before,
+                   current,
+                   after
                  };
     //this.sound.onloadedmetadata = () => { this.setState({duration: this.sound.duration}) };
-    this.data = null;
-    this.poz = 2; // потом будет this.poz = 2;
+
 
     this.playSnd = this.playSnd.bind(this);
     this.stopSnd = this.stopSnd.bind(this);
@@ -57,9 +62,12 @@ class Dialog extends React.Component {
         <button className="btn"  onClick={this.playSnd}>play</button>
         <button className="btn"  onClick={this.stopSnd}>stop</button>
         <div> Duration: {this.state.duration} </div>
-        <span> {this.state.before.txt} </span>
-        <span> {this.state.current.txt} </span>
-        <span> {this.state.after.txt} </span>
+        <ItemDialog txt={this.state.before} /> 
+        <ItemDialog txt={this.state.current} /> 
+        <ItemDialog txt={this.state.after} /> 
+        <span> {this.state.before} </span>
+        <span> {this.state.current} </span>
+        <span> {this.state.after} </span>
 
       </div>
     );

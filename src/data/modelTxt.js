@@ -8,10 +8,10 @@ model.loadLngt = (path) => {
         return response.text();
       })
       .then(function(txt) {
-        //const data = document.createDocumentFragment();
+        //const data = document.createDocumentFragment(); 
         const elem = document.createElement('DIV');
-        elem.innerHTML = txt.replace(/__/g, "--").replace(/<br>/g, "__");
-        const data = extractData(elem)
+        elem.innerHTML = txt.replace(/__/g, "--").replace(/<br>/g, "__"); // нужно из-за дальнейшего применения textContent
+        const data = extractData(elem);
         resolve(data);
       })
       .catch( err => {
@@ -20,23 +20,36 @@ model.loadLngt = (path) => {
     });
 };
 
-model.getItems = (data, poz) => (
-  {
-    before: data[poz-1],
-    current: data[poz],
-    after: data[poz+1]
-  });
+model.getItems = (data = [], poz = 0) => {
+  var before = "",
+      current = "",
+      after = "",
+      _from = 0,
+      _to = 0;
+  
+  if (data.length !== 0) {
+    current = data[poz].txt;
+    _from = data[poz]._from;
+    _to = data[poz]._to; 
+
+    before = (poz === 0) ? "" : data[poz - 1].txt;
+    after = (poz === data.length - 1) ? "" : data[poz + 1].txt; // если текущий элемент - последний в массиве
+  }
+
+  return { before, current, after, _from, _to } 
+}; 
+
+
+
 
 
 function extractData(elem) {
-  const spans = elem.querySelectorAll('span');
+  const spans = elem.querySelectorAll('span[from][to]');
   const data = [];
   spans.forEach( span => {
-    if (span.hasAttributes('from')) {
-      data.push({txt: span.textContent,
-                _from: span.hasAttributes('from'),
-                _to: span.hasAttributes('to') });
-    }
+    data.push({txt: span.textContent,
+              _from: span.getAttribute('from'),
+              _to: span.getAttribute('to') });
   });
   return data;
 }
