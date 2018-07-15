@@ -1,5 +1,5 @@
 import React from 'react';
-import './Start.css';
+import './css/Start.css';
 
 const Start = (props) => (
   <ul className="StartUl">

@@ -1,8 +1,9 @@
 .StartUl {
+  flex: 1;
   margin: 20px;
 }
 
 .StartUl li {
   margin: 10px;
   cursor: pointer;
-}  
+}

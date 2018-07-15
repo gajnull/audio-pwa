@@ -1,23 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import files from './data/metaData';
 import './reset.css';
 import './App.css';
 import Start from './Components/Start';
 import Dialog from './Components/Dialog';
+import TopMnu from './Components/TopMnu';
+import BottomMnu from './Components/BottomMnu';
 
-
-/* const App2 = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <h1 className="App-title">Welcome to React</h1>
-    </header>
-    <p className="App-intro">
-      To get started, edit <code>src/App.js</code> and save to reload.
-    </p>
-  </div>
-); */
 
 class App extends React.Component {
   constructor() {
@@ -42,11 +31,9 @@ class App extends React.Component {
     if (this.state.stateApp === 'dialog') location = <Dialog ind={this.ind} file={files[this.ind]} gotoStart={this.gotoStart} settings={settings} />;
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Lngt</h1>
-        </header>
+        <TopMnu />
         {location}
+        <BottomMnu />        
       </div>
     );
   }
@@ -60,3 +47,6 @@ const settings = {  // потом возможно сделаем членом �
 }
 
 export default App;
+
+
+// <img src={logo} className="App-logo" alt="logo" />

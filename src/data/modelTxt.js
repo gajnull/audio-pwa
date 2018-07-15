@@ -8,9 +8,10 @@ model.loadLngt = (path) => {
         return response.text();
       })
       .then(function(txt) {
-        //const data = document.createDocumentFragment(); 
+        //const data = document.createDocumentFragment();
         const elem = document.createElement('DIV');
-        elem.innerHTML = txt.replace(/__/g, "--").replace(/<br>/g, "__"); // нужно из-за дальнейшего применения textContent
+        //elem.innerHTML = txt.replace(/__/g, "--").replace(/<br>/g, "\n"); // нужно из-за дальнейшего применения textContent
+        elem.innerHTML = txt; // нужно из-за дальнейшего применения textContent
         const data = extractData(elem);
         resolve(data);
       })
@@ -26,18 +27,18 @@ model.getItems = (data = [], poz = 0) => {
       after = "",
       _from = 0,
       _to = 0;
-  
+
   if (data.length !== 0) {
     current = data[poz].txt;
     _from = data[poz]._from;
-    _to = data[poz]._to; 
+    _to = data[poz]._to;
+  //console.log( _from, _to);
 
     before = (poz === 0) ? "" : data[poz - 1].txt;
     after = (poz === data.length - 1) ? "" : data[poz + 1].txt; // если текущий элемент - последний в массиве
   }
-
-  return { before, current, after, _from, _to } 
-}; 
+  return { before, current, after, _from, _to }
+};
 
 
 
@@ -47,7 +48,7 @@ function extractData(elem) {
   const spans = elem.querySelectorAll('span[from][to]');
   const data = [];
   spans.forEach( span => {
-    data.push({txt: span.textContent,
+    data.push({txt: span.innerHTML, //textContent,
               _from: span.getAttribute('from'),
               _to: span.getAttribute('to') });
   });
