@@ -6,6 +6,7 @@ const divStyle = {
   flex: '1',
   backgroundColor: '#222',
   color: 'white',
+  minWidth: '0',
   borderRight: '2px solid grey'
 };
 

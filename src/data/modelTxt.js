@@ -10,7 +10,6 @@ model.loadLngt = (path) => {
       .then(function(txt) {
         //const data = document.createDocumentFragment();
         const elem = document.createElement('DIV');
-        //elem.innerHTML = txt.replace(/__/g, "--").replace(/<br>/g, "\n"); // нужно из-за дальнейшего применения textContent
         elem.innerHTML = txt; // нужно из-за дальнейшего применения textContent
         const data = extractData(elem);
         resolve(data);
@@ -32,7 +31,6 @@ model.getItems = (data = [], poz = 0) => {
     current = data[poz].txt;
     _from = data[poz]._from;
     _to = data[poz]._to;
-  //console.log( _from, _to);
 
     before = (poz === 0) ? "" : data[poz - 1].txt;
     after = (poz === data.length - 1) ? "" : data[poz + 1].txt; // если текущий элемент - последний в массиве

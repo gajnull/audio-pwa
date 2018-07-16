@@ -45,10 +45,8 @@ class Dialog extends React.Component {
   }
 
   playSnd(e) {
-    //console.log(this._from, this._to);
     this.sound.currentTime = this._from;
     this.sound.play();
-    //this.timer = setTimeout(this.stopSnd, this._to * 1000);
     this.timer = setTimeout(this.stopSnd, this._to * 1000);
   }
 
