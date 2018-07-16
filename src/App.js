@@ -8,12 +8,22 @@ import TopMnu from './Components/TopMnu';
 import BottomMnu from './Components/BottomMnu';
 
 
+var settings = {
+  countR: 1,
+  speed: 1,
+  pause: 1,
+  metod: 'repeat',  // "repeate"/"all"/"demand"
+  status: 'idle'
+};
+
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {stateApp: 'start'};   // stateApp: 'start'/'dialog'
+    this.state = {stateApp: 'start',  // stateApp: 'start'/'dialog'
+                  settings};
     this.gotoStart = this.gotoStart.bind(this);
     this.selectDialog = this.selectDialog.bind(this);
+    this.changeMode = this.changeMode.bind(this);
   }
 
   selectDialog(ind) {
@@ -25,6 +35,10 @@ class App extends React.Component {
     this.setState({stateApp: 'start'});
   }
 
+  changeMode(mode) {
+    
+  }
+
   render() {
     let location = <p> Unknown stateApp </p>
     if (this.state.stateApp === 'start') location = <Start files={files} selectDialog={this.selectDialog} settings={settings} />;
@@ -33,20 +47,10 @@ class App extends React.Component {
       <div className="App">
         <TopMnu />
         {location}
-        <BottomMnu />        
+        <BottomMnu />
       </div>
     );
   }
 }
 
-const settings = {  // потом возможно сделаем членом класса App
-  countR: 1,
-  speed: 1,
-  pause: 1,
-  metod: "repeat"  // "repeate"/"all"/"demand"
-}
-
 export default App;
-
-
-// <img src={logo} className="App-logo" alt="logo" />

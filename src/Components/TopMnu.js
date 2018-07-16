@@ -15,7 +15,7 @@ const TopMnu = () => {
 
   return (
     <div style={{display:'flex', width:'100%', height:'40px'}}>
-        <div style={divStyle} >
+        <div style={divStyle}>
           <img src={Back} style={{height:'100%'}} alt="Назад" />
         </div>
         <div style={{...divStyle, borderStyle:'none'}} >

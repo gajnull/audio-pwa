@@ -1,7 +1,6 @@
 import React from 'react';
-import PlayOne from './img/play-one128_2.png';
-//import Play from './img/play128.png';
-import Play from './img/uu.png';
+import PlayOne from './img/play-one.png';
+import Play from './img/play-in-series.png';
 
 const divStyle = {
   flex: '1',
@@ -12,14 +11,14 @@ const divStyle = {
   minWidth: '0'
 };
 
-const BottomMnu = () => {
+const BottomMnu = ({play}) => {
 
   return (
     <div style={{display:'flex', width:'100%', height:'40px'}}>
-      <div style={divStyle} >
+      <div style={divStyle} onClick={(e) => play('one')} >
         <img src={PlayOne} style={{height:'100%'}} alt="Одноразово" />
         </div>
-      <div style={divStyle} >
+      <div style={divStyle}  onClick={(e) => play('in-series')}>
         <img src={Play} style={{height:'100%'}} alt="Непрерывно" />
       </div>
       <div style={{...divStyle, borderStyle:'none'}}>
