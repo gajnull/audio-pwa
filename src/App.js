@@ -12,8 +12,7 @@ var settings = {
   countR: 1,
   speed: 1,
   pause: 1,
-  metod: 'repeat',  // "repeate"/"all"/"demand"
-  status: 'idle'
+  metod: 'demand'  // "demand"/"all"/"repeat"
 };
 
 class App extends React.Component {
@@ -36,7 +35,7 @@ class App extends React.Component {
   }
 
   changeMode(mode) {
-    
+
   }
 
   render() {

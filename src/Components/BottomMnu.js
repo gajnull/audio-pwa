@@ -1,32 +1,63 @@
 import React from 'react';
 import PlayOne from './img/play-one.png';
 import Play from './img/play-in-series.png';
+import Repeat from './img/repeat.png';
+import PlayInfo from './img/play-info.png';
+import PauseInfo from './img/pause-info.png';
 
-const divStyle = {
+const btnStyle = {
   flex: '1',
   backgroundColor: '#222',
   color: 'white',
-  borderRight: '2px solid grey',
+  borderLeft: '2px solid grey',
   padding: '7px 0px',
   minWidth: '0'
 };
 
-const BottomMnu = ({play}) => {
+const activeBtnStyle = {
+  ... btnStyle,
+  backgroundColor: '#666'
+};
+
+  // props = {curMetod, isDialog, setMetod, tooglePlay}
+const BottomMnu = (props) => {
 
   return (
     <div style={{display:'flex', width:'100%', height:'40px'}}>
-      <div style={divStyle} onClick={(e) => play('one')} >
-        <img src={PlayOne} style={{height:'100%'}} alt="Одноразово" />
-      </div>
-      <div style={divStyle}  onClick={(e) => play('in-series')}>
-        <img src={Play} style={{height:'100%'}} alt="Непрерывно" />
-      </div>
-      <div style={{...divStyle, borderStyle:'none'}}>
-        <div> ... </div>
-      </div>
+      {item({...props, img: PlayOne, metod: 'demand', first: true})}
+      {item({...props, img: Play, metod: 'all'})}
+      {item({...props, img: Repeat, metod: 'repeat'})}
+
+
+
     </div>
   );
 
-}
+};
+
+
+const item = ({metod, setMetod}) => {
+
+  return (
+    <div style={{...divStyle, borderStyle:'none'}} onClick={(e) => play('one')} >
+      <img src={PlayOne} style={{height:'100%'}} alt="Одноразово" />
+    </div>
+  );
+};
+
 
 export default BottomMnu;
+
+// <div style={{...divStyle, borderStyle:'none'}} onClick={(e) => play('one')} >
+//   <img src={PlayOne} style={{height:'100%'}} alt="Одноразово" />
+// </div>
+// <div style={divStyle}  onClick={(e) => play('in-series')}>
+//   <img src={Play} style={{height:'100%'}} alt="Непрерывно" />
+// </div>
+// <div style={divStyle}  onClick={(e) => play('in-series')}>
+//   <img src={Play} style={{height:'100%'}} alt="Непрерывно" />
+// </div>
+//
+// <div style={divStyle}>
+//   <div> ... </div>
+// </div>

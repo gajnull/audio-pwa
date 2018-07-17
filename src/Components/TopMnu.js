@@ -1,5 +1,5 @@
 import React from 'react';
-import Back from './img/back128.png';
+import Back from './img/back.png';
 import Settings from './img/settings.png';
 
 const divStyle = {
