@@ -17,7 +17,7 @@ const BottomMnu = ({play}) => {
     <div style={{display:'flex', width:'100%', height:'40px'}}>
       <div style={divStyle} onClick={(e) => play('one')} >
         <img src={PlayOne} style={{height:'100%'}} alt="Одноразово" />
-        </div>
+      </div>
       <div style={divStyle}  onClick={(e) => play('in-series')}>
         <img src={Play} style={{height:'100%'}} alt="Непрерывно" />
       </div>
