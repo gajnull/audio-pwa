@@ -1,6 +1,6 @@
 import React from 'react';
-import PlayOne from './img/play-one.png';
-import Play from './img/play-in-series.png';
+import Demand from './img/play-one.png';
+import All from './img/play-in-series.png';
 import Repeat from './img/repeat.png';
 import PlayInfo from './img/play-info.png';
 import PauseInfo from './img/pause-info.png';
@@ -36,11 +36,13 @@ const BottomMnu = (props) => {
 };
 
 
-const item = ({metod, setMetod}) => {
-
+const item = ({activeMetod, metod, setMetod, first}) => {
+  let style = (activeMetod === metod) ? activeBtnStyle : btnStyle;
+  if(first) style.borderStyle = 'none';
+  const src = metod[0].toUpperCase() + metod.slice(1);
   return (
-    <div style={{...divStyle, borderStyle:'none'}} onClick={(e) => play('one')} >
-      <img src={PlayOne} style={{height:'100%'}} alt="Одноразово" />
+    <div style={style} onClick={setMetod.bind(null, metod)} >
+      <img src={PlayOne} style={{height:'100%'}} alt={metod} />
     </div>
   );
 };
