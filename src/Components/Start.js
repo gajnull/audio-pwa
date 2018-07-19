@@ -1,11 +1,14 @@
 import React from 'react';
+import TopMnu from './TopMnuStart';
 import './css/Start.css';
 
-const Start = (props) => (
+const Start = ({files, selectDialog, showStatistics, setSettings}) => (
+
   <div className="StartUl">
+    <TopMnu setSettings={setSettings} showStatistic={showStatistics} />
     <ul>
-      { props.files.map((file, index) =>
-          <li key={file.name} onClick={(e) => props.selectDialog(index)}>{file.name}</li>)
+      { files.map((file, index) =>
+          <li key={file.name} onClick={(e) => selectDialog(index)}>{file.name}</li>)
       }
     </ul>
   </div>

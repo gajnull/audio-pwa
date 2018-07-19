@@ -1,8 +1,16 @@
 .StartUl {
   flex: 1;
-  margin: 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+
   font-size: 1.2em;
   text-align: left;
+}
+
+.StartUl ul {
+  flex: 1;
+  padding: 10px 20px;
 }
 
 .StartUl li {

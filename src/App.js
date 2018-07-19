@@ -4,7 +4,6 @@ import './reset.css';
 import './App.css';
 import Start from './Components/Start';
 import Dialog from './Components/Dialog';
-import TopMnu from './Components/TopMnu';
 import BottomMnu from './Components/BottomMnu';
 
 
@@ -14,6 +13,8 @@ var settings = {
   pause: 1,
   metod: 'demand'  // "demand"/"all"/"repeat"
 };
+
+let isPlay = false;
 
 class App extends React.Component {
   constructor() {
@@ -39,14 +40,13 @@ class App extends React.Component {
   }
 
   render() {
-    let location = <p> Unknown stateApp </p>
-    if (this.state.stateApp === 'start') location = <Start files={files} selectDialog={this.selectDialog} settings={settings} />;
-    if (this.state.stateApp === 'dialog') location = <Dialog ind={this.ind} file={files[this.ind]} gotoStart={this.gotoStart} settings={settings} />;
+    let main = <p> Unknown stateApp </p>
+    if (this.state.stateApp === 'start') main = <Start files={files} selectDialog={this.selectDialog} settings={settings} />;
+    if (this.state.stateApp === 'dialog') main = <Dialog ind={this.ind} file={files[this.ind]} gotoStart={this.gotoStart} settings={settings} />;
     return (
       <div className="App">
-        <TopMnu />
-        {location}
-        <BottomMnu />
+        {main}
+        <BottomMnu activeMetod={settings.metod} isPlay={isPlay} isDialog={this.state.stateApp === 'dialog'} setMetod={()=>{}} />
       </div>
     );
   }
