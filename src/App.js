@@ -1,5 +1,5 @@
 import React from 'react';
-import files from './data/metaData';
+import files from './data/metaData';  // [{name, txt, audio}, ...]
 import './reset.css';
 import './App.css';
 import Start from './Components/Start';

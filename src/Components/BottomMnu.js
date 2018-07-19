@@ -19,7 +19,7 @@ const BottomMnu = ({activeMetod, isPlay, isDialog, setMetod}) => {
 };
 
 
-let btnStyle = {
+const btnStyle = {
   flex: '1',
   backgroundColor: '#222',
   color: 'white',
@@ -28,21 +28,21 @@ let btnStyle = {
   minWidth: '0'
 };
 
-let activeBtnStyle = {
+const activeBtnStyle = {
   ...btnStyle,
   backgroundColor: '#666'
 };
 
 const item = ({activeMetod, metod, img, setMetod, first}) => {
-  let style = (activeMetod === metod) ? activeBtnStyle : btnStyle;
+  const style = (activeMetod === metod) ? {...activeBtnStyle} : {...btnStyle};
   if(first) style.borderLeftStyle = 'none';
+
   return (
     <div style={style} onClick={setMetod.bind(null, metod)} >
       <img src={img} style={{height:'100%'}} alt={metod} />
     </div>
   );
 };
-
 
 
 const playStyle = {
@@ -56,7 +56,7 @@ const playStyle = {
 
 const itemPlay = ({isPlay}) => {
   if(isPlay) { playStyle.backgroundColor = '#666'; }
-  const img = isPlay ? PauseInfo : PlayInfo; 
+  const img = isPlay ? PauseInfo : PlayInfo;
   return (
     <div style={playStyle} >
       <img src={img} style={{height:'100%'}} alt={img.name} />
@@ -65,5 +65,3 @@ const itemPlay = ({isPlay}) => {
 }
 
 export default BottomMnu;
-
-
