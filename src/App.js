@@ -7,7 +7,7 @@ import Dialog from './Components/Dialog';
 import BottomMnu from './Components/BottomMnu';
 
 
-var settings = {
+let defaultSettings = {
   countR: 1,
   speed: 1,
   pause: 1,
@@ -20,8 +20,9 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {stateApp: 'start',  // stateApp: 'start'/'dialog'
-                  settings};
+                  settings: defaultSettings};
     this.gotoStart = this.gotoStart.bind(this);
+    this.setMetod = this.setMetod.bind(this);
     this.selectDialog = this.selectDialog.bind(this);
     this.changeMode = this.changeMode.bind(this);
   }
@@ -35,18 +36,24 @@ class App extends React.Component {
     this.setState({stateApp: 'start'});
   }
 
+  setMetod(metod) {
+    if (this.state.settings.metod === metod) return;
+    const settings = {...this.state.settings, metod};
+    this.setState({settings});
+  }
+
   changeMode(mode) {
 
   }
 
   render() {
     let main = <p> Unknown stateApp </p>
-    if (this.state.stateApp === 'start') main = <Start files={files} selectDialog={this.selectDialog} settings={settings} />;
-    if (this.state.stateApp === 'dialog') main = <Dialog ind={this.ind} file={files[this.ind]} gotoStart={this.gotoStart} settings={settings} />;
+    if (this.state.stateApp === 'start') main = <Start files={files} selectDialog={this.selectDialog} settings={this.state.settings} />;
+    if (this.state.stateApp === 'dialog') main = <Dialog ind={this.ind} file={files[this.ind]} gotoStart={this.gotoStart} settings={this.state.settings} />;
     return (
       <div className="App">
         {main}
-        <BottomMnu activeMetod={settings.metod} isPlay={isPlay} isDialog={this.state.stateApp === 'dialog'} setMetod={()=>{}} />
+        <BottomMnu activeMetod={this.state.settings.metod} isPlay={isPlay} isDialog={this.state.stateApp === 'dialog'} setMetod={this.setMetod} />
       </div>
     );
   }

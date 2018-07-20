@@ -21,6 +21,7 @@ const BottomMnu = ({activeMetod, isPlay, isDialog, setMetod}) => {
 
 const btnStyle = {
   flex: '1',
+  //height: '100%',
   backgroundColor: '#222',
   color: 'white',
   borderLeft: '2px solid grey',
@@ -34,8 +35,8 @@ const activeBtnStyle = {
 };
 
 const item = ({activeMetod, metod, img, setMetod, first}) => {
-  const style = (activeMetod === metod) ? {...activeBtnStyle} : {...btnStyle};
-  if(first) style.borderLeftStyle = 'none';
+  let style = (activeMetod === metod) ? activeBtnStyle : btnStyle;
+  if(first) style = {...style, borderLeftStyle: 'none'};
 
   return (
     <div style={style} onClick={setMetod.bind(null, metod)} >

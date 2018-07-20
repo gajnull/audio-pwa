@@ -1,8 +1,8 @@
 import React from 'react';
+import TopMnu from './TopMnuDialog';
 import ItemDialog from './ItemDialog';
 import './css/Dialog.css';
 import modelTxt from '../data/modelTxt';
-//import Exz from '../data/Exz';
 
 class Dialog extends React.Component {
   constructor(props) {
@@ -20,6 +20,7 @@ class Dialog extends React.Component {
     this._from = _from;
     this._to = _to;
 
+    this.gotoBegin = this.gotoBegin.bind(this);
     this.playSnd = this.playSnd.bind(this);
     this.stopSnd = this.stopSnd.bind(this);
   }
@@ -30,10 +31,11 @@ class Dialog extends React.Component {
     modelTxt.loadLngt('data/' + this.props.file.txt)
             .then(data => {
               this.data = data;
-              const { before, current, after, _from, _to } =  modelTxt.getItems(data, this.poz);
-              this.setState({ before, current, after });
-              this._from = _from;
-              this._to = _to;
+              this._gotoPoz();
+              //const { before, current, after, _from, _to } =  modelTxt.getItems(data, this.poz);
+              //this.setState({ before, current, after });
+              //this._from = _from;
+              //this._to = _to;
              });
   }
 
@@ -44,6 +46,11 @@ class Dialog extends React.Component {
     clearTimeout(this.timer);
   }
 
+  gotoBegin() {
+    this.poz = 0;
+    this._gotoPoz();
+  }
+  
   playSnd(e) {
     this.sound.currentTime = this._from;
     this.sound.play();
@@ -55,9 +62,15 @@ class Dialog extends React.Component {
     clearTimeout(this.timer);
   }
 
+  _gotoPoz() {
+    const { before, current, after, _from, _to } =  modelTxt.getItems(this.data, this.poz);
+    this._from = _from;
+    this._to = _to;      
+    this.setState({ before, current, after });
+  }
+
   render() {
-
-
+    const {gotoStart, setSettings} = this.props;
     return (
       <div className="Dialog">
         <div hidden>
@@ -70,10 +83,11 @@ class Dialog extends React.Component {
           <button className="btn"  onClick={this.stopSnd}>stop</button>
           <div> Duration: {this.state.duration} </div>
         </div>
+        <TopMnu gotoStart={gotoStart} gotoBegin={this.gotoBegin} setSettings={setSettings} />
         <div className="items">
-          <ItemDialog txt={this.state.before} />
+          <ItemDialog txt={this.state.before} onClick={() => {this.poz--; this._gotoPoz()}} />
           <ItemDialog txt={this.state.current} active />
-          <ItemDialog txt={this.state.after} />
+          <ItemDialog txt={this.state.after} onClick={() => {this.poz++; this._gotoPoz()}} />
         </div>
       </div>
     );

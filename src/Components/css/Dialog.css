@@ -1,9 +1,9 @@
 .Dialog {
+  flex: 1;
   text-align: left;
-  margin: 5px;
   height: 100%;
 }
 
 .items {
-margin: 10px 0px;
+margin: 10px;
 }

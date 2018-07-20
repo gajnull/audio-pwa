@@ -1,5 +1,6 @@
 import React from 'react';
 import Back from './img/back.png';
+import Begin from './img/begin.png';
 import Settings from './img/settings.png';
 
 const divStyle = {
@@ -7,20 +8,24 @@ const divStyle = {
   backgroundColor: '#222',
   color: 'white',
   minWidth: '0',
-  borderRight: '2px solid grey'
+  borderRight: '2px solid grey',
+  textAlign: 'center'
 };
 
 
-const TopMnu = () => {
+const TopMnu = ({gotoStart, gotoBegin, setSettings}) => {
 
   return (
     <div style={{display:'flex', width:'100%', height:'40px'}}>
-        <div style={divStyle}>
+        <div style={divStyle} onClick={gotoStart} >
           <img src={Back} style={{height:'100%'}} alt="Назад" />
         </div>
-        <div style={{...divStyle, borderStyle:'none'}} >
-          <img src={Settings} style={{height:'100%'}} alt="Настройки" />
+        <div style={divStyle} onClick={gotoBegin} >
+          <img src={Begin} style={{height:'100%'}} alt="Настройки" />
         </div>
+        <div style={{...divStyle, borderStyle:'none'}} onClick={setSettings} >
+          <img src={Settings} style={{height:'100%'}} alt="Настройки" />
+        </div>        
     </div>
   );
 
