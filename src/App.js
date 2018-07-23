@@ -48,8 +48,12 @@ class App extends React.Component {
 
   render() {
     let main = <p> Unknown stateApp </p>
-    if (this.state.stateApp === 'start') main = <Start files={files} selectDialog={this.selectDialog} settings={this.state.settings} />;
-    if (this.state.stateApp === 'dialog') main = <Dialog ind={this.ind} file={files[this.ind]} gotoStart={this.gotoStart} settings={this.state.settings} />;
+    if (this.state.stateApp === 'start')
+            main = <Start files={files} selectDialog={this.selectDialog}
+              settings={this.state.settings} />;
+    if (this.state.stateApp === 'dialog')
+            main = <Dialog ind={this.ind} file={files[this.ind]}
+              gotoStart={this.gotoStart} settings={this.state.settings} />;
     return (
       <div className="App">
         {main}
