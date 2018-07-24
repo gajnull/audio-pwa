@@ -8,9 +8,9 @@ import BottomMnu from './Components/BottomMnu';
 
 
 let defaultSettings = {
-  countR: 1,
+  countRepeat: 1,
   speed: 1,
-  pause: 1,
+  ratePause: 1,
   metod: 'demand'  // "demand"/"all"/"repeat"
 };
 
@@ -24,7 +24,6 @@ class App extends React.Component {
     this.gotoStart = this.gotoStart.bind(this);
     this.setMetod = this.setMetod.bind(this);
     this.selectDialog = this.selectDialog.bind(this);
-    this.changeMode = this.changeMode.bind(this);
   }
 
   selectDialog(ind) {
@@ -40,10 +39,6 @@ class App extends React.Component {
     if (this.state.settings.metod === metod) return;
     const settings = {...this.state.settings, metod};
     this.setState({settings});
-  }
-
-  changeMode(mode) {
-
   }
 
   render() {

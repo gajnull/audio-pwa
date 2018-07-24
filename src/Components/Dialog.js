@@ -5,12 +5,15 @@ import './css/Dialog.css';
 import modelTxt from '../data/modelTxt';
 import player from './player';
 
+// props = {ind, file, gotoStart, settings}
+// file = {name, txt, audio} settings = {countRepeat, speed, ratePause, metod}
+
 class Dialog extends React.Component {
   constructor(props) {
     super(props);
 
     this.data = [];
-    this.poz = 0; // потом будет this.poz = 0;
+    this.poz = 0; 
     const { before, current, after, _from, _to } =  modelTxt.getItems(this.data, this.poz);
 
     this.state = { //duration: "",
@@ -18,13 +21,9 @@ class Dialog extends React.Component {
                    current,
                    after
                  };
-    this._from = _from;
-    this._to = _to;
+    player.range(_from, _to);             
 
     this.gotoBegin = this.gotoBegin.bind(this);
-    //this.tooglePlay = this.tooglePlay.bind(this);
-    //this.playSnd = this.playSnd.bind(this);
-    //this.stopSnd = this.stopSnd.bind(this);
   }
 
   componentDidMount() {
@@ -38,8 +37,6 @@ class Dialog extends React.Component {
   }
 
   componentWillUnmount() {
-    /*this.sound.pause();
-    this.sound.src = "";*/
     /*clearTimeout(this.timer);*/
     player.unload();
     this.data = null;
@@ -55,15 +52,11 @@ class Dialog extends React.Component {
   }
 
   playSnd(e) {
-/*    this.sound.currentTime = this._from;
-    this.sound.play();
-    this.timer = setTimeout(this.stopSnd, this._to * 1000); */
+  /*  this.sound.currentTime = this._from; */
   }
 
   stopSnd(e) {
-  /*
-    this.sound.pause();
-    clearTimeout(this.timer); */
+  /*  clearTimeout(this.timer); */
   }
 
   _gotoPoz() {
@@ -76,16 +69,6 @@ class Dialog extends React.Component {
     const {gotoStart, setSettings} = this.props;
     return (
       <div className="Dialog">
-        <div hidden>
-          <p> {this.props.ind} </p>
-          <p> file.name: {this.props.file.name} </p>
-          <p> file.txt: {this.props.file.txt} </p>
-          <p> file.audio: {this.props.file.audio} </p>
-          <button className="btn"  onClick={this.props.gotoStart}>return</button>
-          <button className="btn"  onClick={this.playSnd}>play</button>
-          <button className="btn"  onClick={this.stopSnd}>stop</button>
-          <div> Duration: {this.state.duration} </div>
-        </div>
         <TopMnu gotoStart={gotoStart} gotoBegin={this.gotoBegin} setSettings={setSettings} />
         <div className="items">
           <ItemDialog txt={this.state.before} onClick={() => {this.poz--; this._gotoPoz()}} />
