@@ -11,7 +11,7 @@ let audio,
 
 
 player.load = (src) => {
-  audio = new Audio('data/' + src);
+  audio = new Audio(src);
 };
 
 player.settings = (settings) => {
@@ -35,30 +35,71 @@ player.setGotoNextFn = (fn) => {
 }
 
 player.toogle = () => {
-  if(isPlay && Number(_to) === 0) {
-    player.play();
+  if(!isPlay && Number(_to) >= 0) {
+    playFromBegin();
   } else {
-    player.stop();
+    stop();
   }
   return isPlay;
 };
 
-player.play = () => {
-  audio.currentTime = _from;  ///
-  audio.play();
-  counter++;
-  timerPlay = setTimeout(() => {}, (_to - _from) * 1000); ///
-  timerPause = setTimeout(() => {}, (_to - _from)*1000*(1 + ratePause)); ///
-  if(countRepeat < counter) fnGotoNext(); ///
-  resolveToDo();
-  isPlay = true;
-};
 
-player.stop = () => {
+
+
+function playFromBegin() {
+  if (metod === 'all') counter = 0;
+  play();
+}
+
+function play() {
+  audio.currentTime = _from;
+  audio.play();
+  const durationPlay = (_to - _from) * 1000;
+  timerPlay =  setTimeout(next, durationPlay);
+  isPlay = true;
+}  
+
+function next() {
+  audio.stop();
+  //clearTimeout(timerPlay);
+  const durationPause = (_to - _from) * (1 + ratePause) * 1000;
+  if (!defineNextStep()) {
+    end();
+    return;
+  }
+  timerPause = setTimeout(play, durationPause);
+}
+
+function defineNextStep() {
+  if (metod === 'demand') return false;
+  counter++;
+  if (metod === 'repeat') {
+    if (counter <= countRepeat) return true;
+    return false;
+  }
+  if (metod === 'all') {
+    if (counter <= countRepeat) {
+      return true;
+    } else {
+      fnGotoNext();
+      if (_to < 0) return false;
+      return true
+    }
+  }  
+}
+
+function end() {
+  isPlay = false; // возможне здесб надо передать это выше по иеархии  
+}
+
+function stop() {
+  audio.pause(); //  нужно ли это 
   clearTimeout(timerPlay);
   clearTimeout(timerPause);
   isPlay = false;
-};
+}
+
+
 
 
 
@@ -67,6 +108,3 @@ export default player;
 
 
 
-function resolveToDo() {
-  if (metod === 'demand') player.stop(); 
-}

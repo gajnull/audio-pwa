@@ -37,7 +37,6 @@ class Dialog extends React.Component {
   }
 
   componentWillUnmount() {
-    /*clearTimeout(this.timer);*/
     player.unload();
     this.data = null;
   }
@@ -48,16 +47,11 @@ class Dialog extends React.Component {
   }
 
   tooglePlay() {
-
+    player.toogle();
   }
 
-  playSnd(e) {
-  /*  this.sound.currentTime = this._from; */
-  }
-
-  stopSnd(e) {
-  /*  clearTimeout(this.timer); */
-  }
+/*   playSnd(e) {}
+  stopSnd(e) {} */
 
   _gotoPoz() {
     const { before, current, after, _from, _to } =  modelTxt.getItems(this.data, this.poz);
