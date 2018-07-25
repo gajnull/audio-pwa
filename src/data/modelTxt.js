@@ -38,7 +38,10 @@ model.getItems = (data = [], poz = 0) => {
   return { before, current, after, _from, _to }
 };
 
-
+model.isLastPoz = (data = [], poz = 0) => {
+  if (poz === data.length - 1) return true;
+  return false;
+}
 
 
 

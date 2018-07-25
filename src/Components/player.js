@@ -47,7 +47,8 @@ player.toogle = () => {
 
 
 function playFromBegin() {
-  if (metod === 'all') counter = 0;
+  console.log(metod); // !!!!!!!!!
+  if (metod === 'all' && 'repeat') counter = 0;
   play();
 }
 
@@ -57,10 +58,10 @@ function play() {
   const durationPlay = (_to - _from) * 1000;
   timerPlay =  setTimeout(next, durationPlay);
   isPlay = true;
-}  
+}
 
 function next() {
-  audio.stop();
+  audio.pause();
   //clearTimeout(timerPlay);
   const durationPause = (_to - _from) * (1 + ratePause) * 1000;
   if (!defineNextStep()) {
@@ -85,15 +86,15 @@ function defineNextStep() {
       if (_to < 0) return false;
       return true
     }
-  }  
+  }
 }
 
 function end() {
-  isPlay = false; // возможне здесб надо передать это выше по иеархии  
+  isPlay = false; // возможне здесб надо передать это выше по иеархии
 }
 
 function stop() {
-  audio.pause(); //  нужно ли это 
+  audio.pause(); //  нужно ли это
   clearTimeout(timerPlay);
   clearTimeout(timerPause);
   isPlay = false;
@@ -105,6 +106,3 @@ function stop() {
 
 
 export default player;
-
-
-

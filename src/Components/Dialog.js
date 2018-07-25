@@ -13,7 +13,7 @@ class Dialog extends React.Component {
     super(props);
 
     this.data = [];
-    this.poz = 0; 
+    this.poz = 0;
     const { before, current, after, _from, _to } =  modelTxt.getItems(this.data, this.poz);
 
     this.state = { //duration: "",
@@ -21,9 +21,10 @@ class Dialog extends React.Component {
                    current,
                    after
                  };
-    player.range(_from, _to);             
+    player.range(_from, _to);
 
     this.gotoBegin = this.gotoBegin.bind(this);
+    player.setGotoNextFn(this.nextPoz.bind(this));
   }
 
   componentDidMount() {
@@ -50,8 +51,12 @@ class Dialog extends React.Component {
     player.toogle();
   }
 
-/*   playSnd(e) {}
-  stopSnd(e) {} */
+  nextPoz() {
+    if (modelTxt.isLastPoz(this.data, this.poz)) return false;
+    this.poz++;
+    this._gotoPoz();
+    return true;
+  }
 
   _gotoPoz() {
     const { before, current, after, _from, _to } =  modelTxt.getItems(this.data, this.poz);
