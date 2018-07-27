@@ -55,11 +55,16 @@ const playStyle = {
   minWidth: '15px'
 };
 
+const stopStyle = {
+  ...playStyle,
+  backgroundColor: '#666' 
+}
+
 const itemPlay = ({isPlay}) => {
-  if(isPlay) { playStyle.backgroundColor = '#666'; }
+  const style = isPlay ? playStyle : stopStyle
   const img = isPlay ? PauseInfo : PlayInfo;
   return (
-    <div style={playStyle} >
+    <div style={style} >
       <img src={img} style={{height:'100%'}} alt={img.name} />
     </div>
   );

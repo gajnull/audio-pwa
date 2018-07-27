@@ -2,7 +2,7 @@ const player = {};
 
 let audio,
     _from = '0', _to = '0',
-    counter = 1,
+    counter = 0,
     timerPlay, timerPause,
     fnSetIsPlay, // функция-событие, которое меняет статус isPlay
     fnGotoNext, // функция перехода к следующему участку (устанавливается _from, _to)
@@ -16,21 +16,21 @@ player.load = (src) => {
   //audio.onloadedmetadata = () => { duration = audio.duration };  
 };
 
+player.unload = (src) => {
+  stop();
+  audio.src = "";
+};
+
 player.settings = (settings) => {
   ({countRepeat, speed, ratePause, metod} = settings);
   audio.defaultPlaybackRate = speed;
 }
 
-player.unload = (src) => {
-  audio.pause();
-  audio.src = "";
-  isPlay = false;
-};
-
 player.range = (inFrom, inTo) => {
   _from = inFrom;
   _to = inTo;
 }
+
 
 player.onChangeStatus = (fn) => {
   fnSetIsPlay = fn;
@@ -39,6 +39,7 @@ player.onChangeStatus = (fn) => {
 player.setGotoNextFn = (fn) => {
   fnGotoNext = fn;
 }
+
 
 player.toogle = () => {
   if(!isPlay && Number(_to) >= 0) {
@@ -72,7 +73,7 @@ function play() {
 
 function next() {
   audio.pause();
-  const durationPause = (_to - _from) * (1 + ratePause) * 1000;
+  const durationPause = (_to - _from) * ratePause * 1000;
   if (!defineNextStep()) {
     end();
     return;

@@ -17,7 +17,7 @@ class Dialog extends React.Component {
     this.data = [];
     this.poz = 0;
     const { before, current, after, _from, _to } =  modelTxt.getItems(this.data, this.poz);
-    this.state = { //duration: "",
+    this.state = { 
                    before,
                    current,
                    after

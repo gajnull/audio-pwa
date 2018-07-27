@@ -1,13 +1,3 @@
-/*
-settings: {
-  countRepeat: 1,
-  speed: 1,
-  ratePause: 1,
-  metod: 'demand',  // "demand"/"all"/"repeat"
-  lastCountRepeatForAll: 3,
-  maxCountRepeatFoRepeat: 20  
-}
-*/
 
 function setMetod(_settings, metod) {
   const settings = {..._settings};
