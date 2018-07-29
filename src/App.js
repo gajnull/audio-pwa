@@ -16,10 +16,10 @@ export default class App extends React.Component {
     settings: {
       countRepeat: 1,
       speed: 1,
-      ratePause: 1,
+      ratePause: 1.4,
       metod: 'demand',  // "demand"/"all"/"repeat"
       lastCountRepeatForAll: 3,
-      maxCountRepeatFoRepeat: 20  
+      maxCountRepeatFoRepeat: 2
     }
   };
 
@@ -64,5 +64,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-

@@ -17,7 +17,7 @@ class Dialog extends React.Component {
     this.data = [];
     this.poz = 0;
     const { before, current, after, _from, _to } =  modelTxt.getItems(this.data, this.poz);
-    this.state = { 
+    this.state = {
                    before,
                    current,
                    after
@@ -30,7 +30,7 @@ class Dialog extends React.Component {
     player.setGotoNextFn(this.nextPoz.bind(this));  // возможность для плеера переходить к слудующему участку
     player.onChangeStatus(this.props.setIsPlay);
 
-    player.load('data/' + this.props.file.audio);        
+    player.load('data/' + this.props.file.audio);
   }
 
   componentDidMount() {
@@ -55,15 +55,15 @@ class Dialog extends React.Component {
     player.toogle();
   }
 
-  handlePlayBefore() { 
-    this.poz--; 
-    this._gotoPoz()    
+  handlePlayBefore() {
+    this.poz--;
+    this._gotoPoz()
     player.playAtOnce();
   }
 
-  handlePlayAfter() { 
-    this.poz++; 
-    this._gotoPoz()  
+  handlePlayAfter() {
+    this.poz++;
+    this._gotoPoz()
     player.playAtOnce();
   }
 
@@ -81,8 +81,8 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const {gotoStart, setSettings} = this.props;
-    player.settings(this.props.settings); 
+    const {gotoStart, setSettings, settings} = this.props;
+    player.settings(settings); 
     return (
       <div className="Dialog">
         <TopMnu gotoStart={gotoStart} gotoBegin={this.gotoBegin} setSettings={setSettings} />

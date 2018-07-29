@@ -13,7 +13,7 @@ let audio,
 
 player.load = (src) => {
   audio = new Audio(src);
-  //audio.onloadedmetadata = () => { duration = audio.duration };  
+  //audio.onloadedmetadata = () => { duration = audio.duration };
 };
 
 player.unload = (src) => {
@@ -22,6 +22,8 @@ player.unload = (src) => {
 };
 
 player.settings = (settings) => {
+    console.log('settings: '); ////
+    console.dir(settings);
   ({countRepeat, speed, ratePause, metod} = settings);
   audio.defaultPlaybackRate = speed;
 }
@@ -34,7 +36,7 @@ player.range = (inFrom, inTo) => {
 
 player.onChangeStatus = (fn) => {
   fnSetIsPlay = fn;
-}   
+}
 
 player.setGotoNextFn = (fn) => {
   fnGotoNext = fn;
@@ -47,20 +49,21 @@ player.toogle = () => {
   } else {
     stop();
   }
-  fnSetIsPlay(isPlay);
 };
 
 player.playAtOnce = () => {
   stop();
   playFromBegin();
   isPlay = true;
-  fnSetIsPlay(isPlay);  // сейчас это всегда true, потом возможно изменим  
+  fnSetIsPlay(isPlay);  // сейчас это всегда true, потом возможно изменим
 };
 
 function playFromBegin() {
-  console.log(metod); // !!!!!!!!!
+  console.log('playFromBegin' + metod); // !!!!!!!!!
   counter = 0;  // наверное это лишнее
   play();
+  isPlay = true;
+  fnSetIsPlay(isPlay);
 }
 
 function play() {
@@ -68,7 +71,6 @@ function play() {
   audio.play();
   const durationPlay = (_to - _from) * 1000;
   timerPlay =  setTimeout(next, durationPlay);
-  isPlay = true;
 }
 
 function next() {
@@ -82,10 +84,10 @@ function next() {
 }
 
 function defineNextStep() {
-  if (metod === 'demand') return false; // наверное тоже самое было в условии 'repeat' 
+  if (metod === 'demand') return false; // наверное тоже самое было в условии 'repeat'
   counter++;
   if (metod === 'repeat') {
-    if (counter <= countRepeat) return true;
+    if (counter < countRepeat) return true;
     return false;
   }
   if (metod === 'all') {
@@ -102,13 +104,13 @@ function defineNextStep() {
 
 function end() {
   counter = 0;
-  isPlay = false; 
+  isPlay = false;
   fnSetIsPlay(isPlay);
 }
 
 function stop() {
   audio.pause(); //  нужно ли это
-  counter = 0;  
+  counter = 0;
   clearTimeout(timerPlay);
   clearTimeout(timerPause);
   isPlay = false;
