@@ -5,7 +5,7 @@ import './css/Dialog.css';
 import modelTxt from '../data/modelTxt';
 import player from './player';
 
-// props = {ind, file, gotoStart, setIsPlay, settings}
+// props = {ind, file, gotoStart, setPlayStatus, settings}
 // file = {name, txt, audio} settings = {countRepeat, speed, ratePause, metod}
 
 class Dialog extends React.Component {
@@ -28,7 +28,7 @@ class Dialog extends React.Component {
     this.handlePlayBefore = this.handlePlayBefore.bind(this);
     this.handlePlayAfter = this.handlePlayAfter.bind(this);
     player.setGotoNextFn(this.nextPoz.bind(this));  // возможность для плеера переходить к слудующему участку
-    player.onChangeStatus(this.props.setIsPlay);
+    player.onSetPlayStatus(this.props.setPlayStatus);
 
     player.load('data/' + this.props.file.audio);
   }

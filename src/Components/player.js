@@ -4,7 +4,7 @@ let audio,
     _from = '0', _to = '0',
     counter = 0,
     timerPlay, timerPause,
-    fnSetIsPlay, // функция-событие, которое меняет статус isPlay
+    fnSetPlayStatus, // функция-событие, которое меняет статус isPlay
     fnGotoNext, // функция перехода к следующему участку (устанавливается _from, _to)
     countRepeat, speed, ratePause, metod,
     isPlay = false;
@@ -22,8 +22,6 @@ player.unload = (src) => {
 };
 
 player.settings = (settings) => {
-    console.log('settings: '); ////
-    console.dir(settings);
   ({countRepeat, speed, ratePause, metod} = settings);
   audio.defaultPlaybackRate = speed;
 }
@@ -34,8 +32,11 @@ player.range = (inFrom, inTo) => {
 }
 
 
-player.onChangeStatus = (fn) => {
-  fnSetIsPlay = fn;
+player.onSetPlayStatus = (fn) => {
+  fnSetPlayStatus = (_isPlay) => {
+    isPlay = _isPlay
+    fn(isPlay);
+  }
 }
 
 player.setGotoNextFn = (fn) => {
@@ -54,16 +55,12 @@ player.toogle = () => {
 player.playAtOnce = () => {
   stop();
   playFromBegin();
-  isPlay = true;
-  fnSetIsPlay(isPlay);  // сейчас это всегда true, потом возможно изменим
 };
 
 function playFromBegin() {
-  console.log('playFromBegin' + metod); // !!!!!!!!!
   counter = 0;  // наверное это лишнее
   play();
-  isPlay = true;
-  fnSetIsPlay(isPlay);
+  fnSetPlayStatus(true);
 }
 
 function play() {
@@ -78,9 +75,9 @@ function next() {
   const durationPause = (_to - _from) * ratePause * 1000;
   if (!defineNextStep()) {
     end();
-    return;
+  } else {
+    timerPause = setTimeout(play, durationPause);
   }
-  timerPause = setTimeout(play, durationPause);
 }
 
 function defineNextStep() {
@@ -93,19 +90,18 @@ function defineNextStep() {
   if (metod === 'all') {
     if (counter <= countRepeat) {
       return true;
-    } else {
-      counter = 0;
-      const isNext = fnGotoNext();
-      if (isNext) return true;
-      return false;
     }
+    counter = 0;
+    const isNext = fnGotoNext();
+    if (isNext) return true;
+    return false;
   }
 }
 
+
 function end() {
   counter = 0;
-  isPlay = false;
-  fnSetIsPlay(isPlay);
+  fnSetPlayStatus(false);
 }
 
 function stop() {
@@ -113,8 +109,7 @@ function stop() {
   counter = 0;
   clearTimeout(timerPlay);
   clearTimeout(timerPause);
-  isPlay = false;
-  fnSetIsPlay(isPlay);
+  fnSetPlayStatus(false);
 }
 
 

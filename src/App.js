@@ -28,7 +28,7 @@ export default class App extends React.Component {
     this.gotoStart = this.gotoStart.bind(this);
     this.setMetod = this.setMetod.bind(this);
     this.selectDialog = this.selectDialog.bind(this);
-    this.setIsPlay = this.setIsPlay.bind(this);
+    this.setPlayStatus = this.setPlayStatus.bind(this);
   }
 
   selectDialog(ind) {
@@ -46,7 +46,11 @@ export default class App extends React.Component {
     this.setState({settings});
   }
 
-  setIsPlay(isPlay) { this.setState({isPlay}); }
+  setPlayStatus(isPlay) { 
+    this.setState((state) => { 
+      if (state.isPlay !== isPlay) return {isPlay}; 
+    }); 
+  }
 
   render() {
     let main = <p> Unknown stateApp </p>
@@ -55,7 +59,7 @@ export default class App extends React.Component {
               settings={this.state.settings} />;
     if (this.state.stateApp === 'dialog')
             main = <Dialog ind={this.ind} file={files[this.ind]}
-              gotoStart={this.gotoStart} settings={this.state.settings} setIsPlay={this.setIsPlay} />;
+              gotoStart={this.gotoStart} settings={this.state.settings} setPlayStatus={this.setPlayStatus} />;
     return (
       <div className="App">
         {main}
