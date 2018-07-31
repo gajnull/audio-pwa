@@ -47,6 +47,7 @@ class Dialog extends React.Component {
   }
 
   gotoBegin() {
+    player.stop();
     this.poz = 0;
     this._gotoPoz();
   }
@@ -82,14 +83,16 @@ class Dialog extends React.Component {
 
   render() {
     const {gotoStart, setSettings, settings} = this.props;
-    player.settings(settings); 
+    player.settings(settings);
     return (
       <div className="Dialog">
         <TopMnu gotoStart={gotoStart} gotoBegin={this.gotoBegin} setSettings={setSettings} />
         <div className="items">
+          <div>
           <ItemDialog txt={this.state.before} onClick={this.handlePlayBefore} />
           <ItemDialog txt={this.state.current} active onClick={this.handleTooglePlay} />
           <ItemDialog txt={this.state.after} onClick={this.handlePlayAfter} />
+          </div>
         </div>
       </div>
     );

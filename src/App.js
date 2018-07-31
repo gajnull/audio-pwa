@@ -19,7 +19,7 @@ export default class App extends React.Component {
       ratePause: 1.4,
       metod: 'demand',  // "demand"/"all"/"repeat"
       lastCountRepeatForAll: 3,
-      maxCountRepeatFoRepeat: 2
+      maxCountRepeatFoRepeat: 20  // только на случай, если забудет выключить
     }
   };
 
@@ -46,10 +46,10 @@ export default class App extends React.Component {
     this.setState({settings});
   }
 
-  setPlayStatus(isPlay) { 
-    this.setState((state) => { 
-      if (state.isPlay !== isPlay) return {isPlay}; 
-    }); 
+  setPlayStatus(isPlay) {
+    this.setState((state) => {
+      if (state.isPlay !== isPlay) return {isPlay};
+    });
   }
 
   render() {

@@ -57,6 +57,11 @@ player.playAtOnce = () => {
   playFromBegin();
 };
 
+player.stop = () => {
+  stop();
+};
+
+
 function playFromBegin() {
   counter = 0;  // наверное это лишнее
   play();
@@ -88,7 +93,7 @@ function defineNextStep() {
     return false;
   }
   if (metod === 'all') {
-    if (counter <= countRepeat) {
+    if (counter < countRepeat) {
       return true;
     }
     counter = 0;
