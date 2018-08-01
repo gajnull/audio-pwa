@@ -5,7 +5,7 @@ function setMetod(_settings, metod) {
   settings.metod = metod;
   if (metod === 'demand') settings.countRepeat = 1;
   if (metod === 'repeat') settings.countRepeat = settings.maxCountRepeatFoRepeat;
-  if (metod === 'all') settings.countRepeat = settings.lastCountRepeatForAll;  
+  if (metod === 'all') settings.countRepeat = settings.lastCountRepeatForAll;
 
   return settings;
 }
@@ -13,5 +13,4 @@ function setMetod(_settings, metod) {
 
 export default {
   setMetod
-
 };

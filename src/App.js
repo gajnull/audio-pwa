@@ -1,6 +1,6 @@
 import React from 'react';
 import files from './data/metaData';  // [{name, txt, audio}, ...]
-import tunesAudio from './data/tunesAudio';
+import options from './data/options';
 import './reset.css';
 import './App.css';
 import Start from './Components/Start';
@@ -42,7 +42,7 @@ export default class App extends React.Component {
 
   setMetod(metod) {
     if (this.state.settings.metod === metod) return;
-    const settings = tunesAudio.setMetod(this.state.settings, metod);
+    const settings = options.setMetod(this.state.settings, metod);
     this.setState({settings});
   }
 
