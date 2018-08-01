@@ -25,7 +25,7 @@ export default class App extends React.Component {
 
   constructor() {
     super();
-    this.gotoStart = this.gotoStart.bind(this);
+    this.gotoBack = this.gotoBack.bind(this);
     this.setMetod = this.setMetod.bind(this);
     this.selectDialog = this.selectDialog.bind(this);
     this.setPlayStatus = this.setPlayStatus.bind(this);
@@ -36,8 +36,8 @@ export default class App extends React.Component {
     this.setState({stateApp: 'dialog'});
   }
 
-  gotoStart() {
-    this.setState({stateApp: 'start'});
+  gotoBack(root) {
+    this.setState({stateApp: root});
   }
 
   setMetod(metod) {
@@ -59,7 +59,7 @@ export default class App extends React.Component {
               settings={this.state.settings} />;
     if (this.state.stateApp === 'dialog')
             main = <Dialog ind={this.ind} file={files[this.ind]}
-              gotoStart={this.gotoStart} settings={this.state.settings} setPlayStatus={this.setPlayStatus} />;
+            gotoBack={this.gotoBack} settings={this.state.settings} setPlayStatus={this.setPlayStatus} />;
     return (
       <div className="App">
         {main}

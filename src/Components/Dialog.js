@@ -82,11 +82,11 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const {gotoStart, setSettings, settings} = this.props;
+    const {gotoBack, setSettings, settings} = this.props;
     player.settings(settings);
     return (
       <div className="Dialog">
-        <TopMnu gotoStart={gotoStart} gotoBegin={this.gotoBegin} setSettings={setSettings} />
+        <TopMnu gotoBack={() => gotoBack('start')} gotoBegin={this.gotoBegin} setSettings={setSettings} />
         <div className="items">
           <div>
           <ItemDialog txt={this.state.before} onClick={this.handlePlayBefore} />
