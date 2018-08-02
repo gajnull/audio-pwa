@@ -1,69 +1,78 @@
 import React from 'react';
 import files from './data/metaData';  // [{name, txt, audio}, ...]
 import options from './data/options';
-import './reset.css';
+import './reset.css'; // попробовать это убрать
 import './App.css';
 import Start from './Components/Start';
 import Dialog from './Components/Dialog';
+import Settings from './Components/Settings';
 import BottomMnu from './Components/BottomMnu';
 
 
 export default class App extends React.Component {
 
   state = {
-    stateApp: 'start',  // stateApp: 'start'/'dialog',
-    isPlay: false,
-    settings: {
-      countRepeat: 1,
-      speed: 1,
-      ratePause: 1.4,
-      metod: 'demand',  // "demand"/"all"/"repeat"
-      lastCountRepeatForAll: 3,
-      maxCountRepeatFoRepeat: 20  // только на случай, если забудет выключить
-    }
+    page: 'start',  // page: 'start'/'dialog'/'settings'/'statistics'
+    settings: options.getSettings()
   };
 
   constructor() {
     super();
-    this.gotoBack = this.gotoBack.bind(this);
+    this.pageBefore = 'start';
+    this.gotoPage = this.gotoPage.bind(this);
     this.setMetod = this.setMetod.bind(this);
     this.selectDialog = this.selectDialog.bind(this);
-    this.setPlayStatus = this.setPlayStatus.bind(this);
+    this.setSettings = this.setSettings.bind(this);
+    //this.setPlayStatus = this.setPlayStatus.bind(this);
+    //this.gotoSettings = this.gotoSettings.bind(this);
   }
 
   selectDialog(ind) {
     this.ind = ind;
-    this.setState({stateApp: 'dialog'});
+    this.setState({page: 'dialog'});
   }
 
-  gotoBack(root) {
-    this.setState({stateApp: root});
+  gotoPage(page) {
+    this.pageBefore = this.state.page;
+    this.setState({page});
   }
 
-  setMetod(metod) {
+  setMetod(metod) { // наверное надо совместить с setSettings
     if (this.state.settings.metod === metod) return;
     const settings = options.setMetod(this.state.settings, metod);
     this.setState({settings});
   }
 
-  setPlayStatus(isPlay) {
+  setSettings(settings) {
+    this.setState({settings});
+  }
+
+  /*setPlayStatus(isPlay) {
     this.setState((state) => {
       if (state.isPlay !== isPlay) return {isPlay};
     });
-  }
+  }*/
 
   render() {
     let main = <p> Unknown stateApp </p>
-    if (this.state.stateApp === 'start')
+    if (this.state.page === 'start')
             main = <Start files={files} selectDialog={this.selectDialog}
               settings={this.state.settings} />;
-    if (this.state.stateApp === 'dialog')
+    if (this.state.page === 'dialog')
             main = <Dialog ind={this.ind} file={files[this.ind]}
-            gotoBack={this.gotoBack} settings={this.state.settings} setPlayStatus={this.setPlayStatus} />;
+              gotoBack={this.gotoBack} settings={this.state.settings}
+              setPlayStatus={this.setPlayStatus} />;
+    if (this.state.page === 'settings')
+            main = <Settings settings={this.state.settings}
+              setSettings={this.setSettings} />
+              gotoBack={() => {this.gotoPage(this.pageBefore)}};
     return (
       <div className="App">
         {main}
-        <BottomMnu activeMetod={this.state.settings.metod} isPlay={this.state.isPlay} isDialog={this.state.stateApp === 'dialog'} setMetod={this.setMetod} />
+        <BottomMnu activeMetod={this.state.settings.metod}
+                  isSettings={this.state.page === 'settings'}
+                  setMetod={this.setMetod}
+                  gotoSettings={this.gotoSettings} />
       </div>
     );
   }

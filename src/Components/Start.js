@@ -7,7 +7,7 @@ const Start = ({files, selectDialog, showStatistics,
 
   <div className="StartUl">
     <TopMnu setSettings={setSettings} showStatistic={showStatistics}
-            settings={settings}, back={() => { gotoPage('start') }} />
+            settings={settings} />
     <ul>
       { files.map((file, index) =>
           <li key={file.name} onClick={(e) => selectDialog(index)}>{file.name}</li>)

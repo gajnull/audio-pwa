@@ -2,26 +2,23 @@ import React from 'react';
 import Demand from './img/play-one.png';
 import All from './img/play-in-series.png';
 import Repeat from './img/repeat.png';
-import PlayInfo from './img/play-info.png';
-import PauseInfo from './img/pause-info.png';
+import Settings from './img/settings.png';
 
-  // props = {activeMetod, isDialog, isPlay, setMetod, tooglePlay}
-const BottomMnu = ({activeMetod, isPlay, isDialog, setMetod}) => {
+
+const BottomMnu = ({activeMetod, isSettings, setMetod, gotoSettings}) => {
   return (
     <div style={{display:'flex', width:'100%', height:'40px'}}>
       {item({activeMetod, setMetod, img: Demand, metod: 'demand', first: true})}
       {item({activeMetod, setMetod, img: All, metod: 'all'})}
       {item({activeMetod, setMetod, img: Repeat, metod: 'repeat'})}
-      {isDialog ? itemPlay({isPlay}) : null}
+      {isSettings ? null : itemSettigs({gotoSettings})}
     </div>
   );
-
 };
 
 
 const btnStyle = {
   flex: '1',
-  //height: '100%',
   backgroundColor: '#222',
   color: 'white',
   borderLeft: '2px solid grey',
@@ -34,7 +31,7 @@ const activeBtnStyle = {
   backgroundColor: '#666'
 };
 
-const item = ({activeMetod, metod, img, setMetod, first}) => {
+const item = ({activeMetod, setMetod, metod, img, first}) => {
   let style = (activeMetod === metod) ? activeBtnStyle : btnStyle;
   if(first) style = {...style, borderLeftStyle: 'none'};
 
@@ -46,26 +43,16 @@ const item = ({activeMetod, metod, img, setMetod, first}) => {
 };
 
 
-const playStyle = {
-  flex: '0.5',
-  backgroundColor: '#222',
-  color: 'white',
-  borderLeft: '2px solid grey',
-  padding: '7px 0px',
-  minWidth: '15px'
+
+const settingsStyle = {
+  ...btnStyle,
+  backgroundColor: '#244',
 };
 
-const stopStyle = {
-  ...playStyle,
-  backgroundColor: '#666' 
-}
-
-const itemPlay = ({isPlay}) => {
-  const style = isPlay ? playStyle : stopStyle
-  const img = isPlay ? PauseInfo : PlayInfo;
+const itemSettigs = ({gotoSettings}) => {
   return (
-    <div style={style} >
-      <img src={img} style={{height:'100%'}} alt={img.name} />
+    <div style={settingsStyle} onClick={gotoSettings} >
+      <img src={Settings} style={{height:'100%'}} alt={'settings'} />
     </div>
   );
 }

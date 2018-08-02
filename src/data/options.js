@@ -10,7 +10,20 @@ function setMetod(_settings, metod) {
   return settings;
 }
 
+// потом будем сохранять в localStorage
+function getSettings() {
+  return {
+    countRepeat: 1,
+    speed: 1,
+    ratePause: 1.4,
+    metod: 'demand',  // "demand"/"all"/"repeat"
+    lastCountRepeatForAll: 3,
+    maxCountRepeatFoRepeat: 20  // только на случай, если забудет выключить
+  };
+}
+
 
 export default {
-  setMetod
+  setMetod,
+  getSettings
 };
