@@ -1,10 +1,6 @@
 import React from 'react';
-import TopMnu from './TopMnu';
-import TopMnuItem from './TopMnuItem';
-import Statistics from './img/statistics.png';
-import Settings from './img/settings.png';
 
-/*const divStyle = {
+const divStyle = {
   flex: '1',
   backgroundColor: '#222',
   color: 'white',
@@ -14,10 +10,12 @@ import Settings from './img/settings.png';
 };
 
 
-const TopMnuStart = ({showStatistics, setSettings}) => {
+const TopMnu = (props) => {
 
   return (
     <div style={{display:'flex', width:'100%', height:'40px'}}>
+      
+
         <div style={divStyle} onClick={showStatistics} >
           <img src={Statistics} style={{height:'100%'}} alt="Назад" />
         </div>
@@ -27,10 +25,6 @@ const TopMnuStart = ({showStatistics, setSettings}) => {
     </div>
   );
 
-};*/
+};
 
-const TopMnuStart = (props) => {
-  //
-}
-
-export default TopMnuStart;
+export default TopMnu;

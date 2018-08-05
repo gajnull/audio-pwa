@@ -64,15 +64,15 @@ export default class App extends React.Component {
               setPlayStatus={this.setPlayStatus} />;
     if (this.state.page === 'settings')
             main = <Settings settings={this.state.settings}
-              setSettings={this.setSettings} />
-              gotoBack={() => {this.gotoPage(this.pageBefore)}};
+              setSettings={this.setSettings}
+              gotoBack={() => {this.gotoPage(this.pageBefore)}} />;
     return (
       <div className="App">
         {main}
         <BottomMnu activeMetod={this.state.settings.metod}
                   isSettings={this.state.page === 'settings'}
                   setMetod={this.setMetod}
-                  gotoSettings={this.gotoSettings} />
+                  gotoSettings={() => {this.gotoPage('settings')}} />
       </div>
     );
   }

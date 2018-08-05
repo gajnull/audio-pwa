@@ -2,16 +2,16 @@ import React from 'react';
 import TopMnu from './TopMnuSettings';
 import './css/Settings.css';
 
-const Settings = ({settings, gotoBack, setSpeed, setPause, setVolume, setRepaet}) => {
+const Settings = ({settings, setSettings, gotoBack}) => {
   return (
     <div className="Settings">
       <TopMnu gotoBack={gotoBack}/>
       <div className="items">
         <div>
           <span>settings</span>
-          <span>{settings}</span>
+          <span>{settings.countRepeat}</span>
         </div>
-      </div>    
+      </div>
     </div>
   );
 }
