@@ -1,26 +1,16 @@
 import React from 'react';
-import Back from './img/back.png';
 
-const divStyle = {
-  flex: '1',
-  backgroundColor: '#222',
-  color: 'white',
-  minWidth: '0',
-  borderRight: '2px solid grey',
-  textAlign: 'center'
-};
+import {TopMnu, TopMnuItem, TopMnuItemText} from './TopMnu';
+
+import back from './img/back.png';
 
 
-const TopMnu = ({gotoBack}) => {
+const TopMnuSettings = ({gotoBack}) => (
+  <TopMnu>
+      <TopMnuItem img={back} alt="home" onClick={gotoBack} />
+      <TopMnuItemText title="Установки" />
+  </TopMnu>
+);
 
-  return (
-    <div style={{display:'flex', width:'100%', height:'40px'}}>
-        <div style={divStyle} onClick={gotoBack} >
-          <img src={Back} style={{height:'100%'}} alt="Назад" />
-        </div>
-    </div>
-  );
 
-};
-
-export default TopMnu;
+export default TopMnuSettings;

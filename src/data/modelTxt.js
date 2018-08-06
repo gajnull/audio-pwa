@@ -1,4 +1,4 @@
-const model = {}
+const model = {};
 
 // .then()
 model.loadLngt = (path) => {

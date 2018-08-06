@@ -1,0 +1,17 @@
+.settings {
+  flex: 1;
+  text-align: left;
+  height: 100%;
+}
+
+.items {
+  /*display: flex;
+  justify-content: center; Центрирование по горизонтали
+  align-items: center;     Центрирование по вертикали */
+  margin: 10px;
+}
+
+label {
+  display: block;
+  margin: 10px;
+}

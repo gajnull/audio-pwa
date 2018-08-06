@@ -34,7 +34,7 @@ player.range = (inFrom, inTo) => {
 
 player.onSetPlayStatus = (fn) => {
   fnSetPlayStatus = (_isPlay) => {
-    isPlay = _isPlay
+    isPlay = _isPlay;
     fn(isPlay);
   }
 }

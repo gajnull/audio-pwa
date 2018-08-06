@@ -5,7 +5,7 @@ import './css/Dialog.css';
 import modelTxt from '../data/modelTxt';
 import player from './player';
 
-// props = {ind, file, gotoStart, setPlayStatus, settings}
+// props = {ind, file, gotoStart, settings}
 // file = {name, txt, audio} settings = {countRepeat, speed, ratePause, metod}
 
 class Dialog extends React.Component {
@@ -28,7 +28,7 @@ class Dialog extends React.Component {
     this.handlePlayBefore = this.handlePlayBefore.bind(this);
     this.handlePlayAfter = this.handlePlayAfter.bind(this);
     player.setGotoNextFn(this.nextPoz.bind(this));  // возможность для плеера переходить к слудующему участку
-    player.onSetPlayStatus(this.props.setPlayStatus);
+    player.onSetPlayStatus(this.setPlayStatus.bind(this));
 
     player.load('data/' + this.props.file.audio);
   }
@@ -44,6 +44,12 @@ class Dialog extends React.Component {
   componentWillUnmount() {
     player.unload();
     this.data = null;
+  }
+
+  setPlayStatus(isPlay) {
+    this.setState((state) => {
+      if (state.isPlay !== isPlay) return {isPlay};
+    });
   }
 
   gotoBegin() {
@@ -82,11 +88,12 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const {gotoBack, setSettings, settings} = this.props;
+    const {gotoStart, settings} = this.props;
     player.settings(settings);
     return (
       <div className="Dialog">
-        <TopMnu gotoBack={() => gotoBack('start')} gotoBegin={this.gotoBegin} setSettings={setSettings} />
+        <TopMnu gotoHome={gotoStart} gotoBegin={this.gotoBegin} 
+                tooglePlay={this.handleTooglePlay} isPlay={this.state.isPlay} />
         <div className="items">
           <div>
           <ItemDialog txt={this.state.before} onClick={this.handlePlayBefore} />

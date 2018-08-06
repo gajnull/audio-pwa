@@ -1,30 +1,23 @@
 import React from 'react';
+import './css/TopMnu.css';
 
-const divStyle = {
-  flex: '1',
-  backgroundColor: '#222',
-  color: 'white',
-  minWidth: '0',
-  borderRight: '2px solid grey',
-  textAlign: 'center'
-};
+const TopMnu = (props) => (
+  <div className="mnu">
+    {props.children}
+  </div>
+);
+
+const TopMnuItem = (props) => (
+  <div className="mnu-item" onClick={props.onClick} >
+    <img src={props.img} alt={props.alt} />
+  </div>
+);
+
+const TopMnuItemText = ({title}) => (
+  <div className="mnu-item" >
+    <span> {title} </span>
+  </div>
+);
 
 
-const TopMnu = (props) => {
-
-  return (
-    <div style={{display:'flex', width:'100%', height:'40px'}}>
-      
-
-        <div style={divStyle} onClick={showStatistics} >
-          <img src={Statistics} style={{height:'100%'}} alt="Назад" />
-        </div>
-        <div style={{...divStyle, borderStyle:'none'}} onClick={setSettings} >
-          <img src={Settings} style={{height:'100%'}} alt="Настройки" />
-        </div>
-    </div>
-  );
-
-};
-
-export default TopMnu;
+export {TopMnu, TopMnuItem, TopMnuItemText};
