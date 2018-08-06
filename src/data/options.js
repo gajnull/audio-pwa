@@ -22,8 +22,22 @@ function getSettings() {
   };
 }
 
+function getNameMetod(metod) {
+  if (metod === 'demand') return 'один раз';
+  if (metod === 'repeat') return 'постоянное повторение';
+  if (metod === 'all') return 'весь диалог';
+}
+
+function nextMetod(metod) {
+  if (metod === 'demand') return 'repeat';
+  if (metod === 'repeat') return 'all';
+  if (metod === 'all') return 'demand';
+}
+
 
 export default {
+  getSettings,
   setMetod,
-  getSettings
+  nextMetod,
+  getNameMetod
 };
