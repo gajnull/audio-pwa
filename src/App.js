@@ -41,7 +41,8 @@ export default class App extends React.Component {
     this.setState({settings});
   }
 
-  setSettings(settings) {
+  setSettings(settings) { // data = {countRepeat, speed, ratePause, metod}
+    //const settings = options.correctData(data);
     this.setState({settings});
   }
 
@@ -57,7 +58,7 @@ export default class App extends React.Component {
               setPlayStatus={this.setPlayStatus} />;
     if (this.state.page === 'settings')
             main = <Settings settings={this.state.settings}
-              setSettings={this.setSettings}
+            setMetod={this.setMetod} setSettings={this.setSettings} 
               gotoBack={() => {this.gotoPage(this.pageBefore)}} />;
     return (
       <div className="App">

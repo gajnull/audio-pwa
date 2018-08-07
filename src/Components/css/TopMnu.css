@@ -1,10 +1,10 @@
-.mnu {
+.top-mnu {
   display: flex; 
   width: 100%; 
   height: 40px;  
 }
 
-.mnu-item {
+.top-mnu-item {
   flex: 1;
   background-color: #222;
   color: white;
@@ -13,15 +13,15 @@
   text-align: center;
 }
 
-.mnu-item:first-of-type {
+.top-mnu-item:first-of-type {
   border-left: none;
 }
 
-.mnu-item>img {
+.top-mnu-item>img {
   height: 100%;
 }
 
-.mnu-item>span {
-  font-size: 1.2em;
+.top-mnu-item>span {
+  font-size: 1.25em;
   line-height: 40px;
 }

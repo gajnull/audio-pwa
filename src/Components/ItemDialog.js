@@ -1,12 +1,23 @@
 import React from 'react';
-import './css/ItemDialog.css';
+
+const style = {
+  fontSize: '1.4em',
+  color: 'grey',
+  lineHeight: '1.1em'
+};
+
+const styleActive = {
+  ...style,
+  fontSize: '2em',
+  color: 'black'
+};
 
 const ItemDialog = ({txt, active, onClick}) => {
-  //const arr = props.txt.split("<br>");
-  const nameClass = "item" + (active ? " active" : "");
+
+  const styleItem = active ? styleActive : style;
 
   return (
-    <span  dangerouslySetInnerHTML = {{__html: txt}} className={nameClass} onClick={onClick} />
+    <span  dangerouslySetInnerHTML = {{__html: txt}} style={styleItem} onClick={onClick} />
   );
 
 }

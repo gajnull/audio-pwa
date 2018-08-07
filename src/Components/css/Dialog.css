@@ -4,9 +4,11 @@
   height: 100%;
 }
 
-.items {
+.items-dlg {
   /*display: flex;
   justify-content: center; Центрирование по горизонтали
   align-items: center;     Центрирование по вертикали */
   margin: 10px;
 }
+
+

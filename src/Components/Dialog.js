@@ -94,7 +94,7 @@ class Dialog extends React.Component {
       <div className="Dialog">
         <TopMnu gotoHome={gotoStart} gotoBegin={this.gotoBegin} 
                 tooglePlay={this.handleTooglePlay} isPlay={this.state.isPlay} />
-        <div className="items">
+        <div className="items-dlg">
           <div>
           <ItemDialog txt={this.state.before} onClick={this.handlePlayBefore} />
           <ItemDialog txt={this.state.current} active onClick={this.handleTooglePlay} />

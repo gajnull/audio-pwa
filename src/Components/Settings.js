@@ -5,7 +5,7 @@ import options from '../data/options';
 
 import './css/Settings.css';
 
- /* {settings, setSettings, nextMetod, gotoBack} */
+ /* {settings, setSettings, setMetod, gotoBack} */
  // settings:  {countRepeat: 1, speed: 1, ratePause: 1.4, metod: 'demand'}  // "demand"/"all"/"repeat"
 
 class Settings extends React.Component {
@@ -17,33 +17,41 @@ class Settings extends React.Component {
   }
 
   handlerOnChange(e) {
-    console.dir(e.target.name);
+    console.log(e.target.name);
+    console.log(e.target.value);
+    console.dir(e.target);
   }
 
   nextMetod() {
-    const settings = this.props.settings
-    const metod = options.nextMetod(settings.metod);
-    this.props.setSettings({...settings, metod});
+    const metod = options.nextMetod(this.props.settings.metod);
+    this.props.setMetod(metod);
   }
 
   render() {
     const {gotoBack, settings} = this.props;
-    const metodName = options.getNameMetod(settings.metod);
+    const {metod, countRepeat, speed, ratePause} = settings;
+    const metodName = options.getNameMetod(metod);
+    const notDemand = (metod !== 'demand');
     return (
       <div className="settings">
         <TopMnu gotoBack={gotoBack} />
         <div className="items">
-          <Item label="Число повторений одного блока" value={settings.countRepeat}
-                name={'countRepeat'} onChange={this.handlerOnChange} />
-          <Item label="Скорость воспроизведения" value={settings.speed}
-                name={'speed'} onChange={this.handlerOnChange} />
-          <Item label="Относительная длительность пауз" value={settings.ratePause}
-                name={'ratePause'} onChange={this.handlerOnChange} />
 
           <div className="item">
             <div className="label"> Метод повторений </div>
-            <div className="setting" onClick={this.nextMetod}> {metodName} </div>
+            <div className="setting text" onClick={this.nextMetod}> {metodName} </div>
           </div>
+
+          { notDemand &&
+            <Item label="Число повторений одного блока" value={countRepeat}
+            name={'countRepeat'} onChange={this.handlerOnChange} /> }
+          
+            <Item label="Скорость воспроизведения" value={speed}
+                name={'speed'} onChange={this.handlerOnChange} />
+          
+          { notDemand &&
+            <Item label="Относительная длительность пауз" value={ratePause}
+            name={'ratePause'} onChange={this.handlerOnChange} /> }
 
         </div>
       </div>
