@@ -17,9 +17,21 @@ class Settings extends React.Component {
   }
 
   handlerOnChange(e) {
-    console.log(e.target.name);
-    console.log(e.target.value);
-    console.dir(e.target);
+    let s;
+    switch(e.target.name) {
+      case 'countRepeat':
+        s = toInt(e.target.value);
+        break;
+      case 'speed':
+        s = e.target.value;
+        break;
+      case 'ratePause':
+        s = e.target.value;
+        break;
+    }
+    const settings = this.props.settings;
+    settings[e.target.name] = s;
+    this.props.setSettings(settings);
   }
 
   nextMetod() {
@@ -45,10 +57,10 @@ class Settings extends React.Component {
           { notDemand &&
             <Item label="Число повторений одного блока" value={countRepeat}
             name={'countRepeat'} onChange={this.handlerOnChange} /> }
-          
+
             <Item label="Скорость воспроизведения" value={speed}
                 name={'speed'} onChange={this.handlerOnChange} />
-          
+
           { notDemand &&
             <Item label="Относительная длительность пауз" value={ratePause}
             name={'ratePause'} onChange={this.handlerOnChange} /> }
@@ -69,3 +81,17 @@ const Item = (props) => (
 
 
 export default Settings;
+
+
+function toInt(s) {
+  let str = s.replace(/\D/g, '');
+  if (!str) return ''; 
+  return parseInt(str);
+}
+
+function toFloat(s) {
+  let str = s.replace(/[^0-9,.]/g, "");
+  str = str.replace(/,/g, ".");
+  const res = str.match(/^(\d)*\.(\d)*/);
+  if
+}
