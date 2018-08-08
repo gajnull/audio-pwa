@@ -19,19 +19,15 @@ class Settings extends React.Component {
     let value = e.target.value;
     let name = e.target.name;
     switch(name) {
-      case 'countRepeat':
-        value = onlyInt(value);
-        break;
       case 'speed':
       case 'ratePause':
         value = onlyFloat(value);
         break;
+      case 'countRepeat':
       default:  // это не должно случиться, но без этого получаем warning
-        return;
+        value = onlyInt(value);
+        break;
     }
-    /*const settings = this.props.settings;
-    settings[e.target.name] = s;
-    this.props.setSettings(settings);*/
     this.props.setSetting(name, value);
   }
 
@@ -48,8 +44,8 @@ class Settings extends React.Component {
 
           <div className="item">
             <div className="label"> Метод повторений </div>
-            <div className="setting text" onClick={() => this.props.setSetting('metod', 'next')}> 
-              {metodName} 
+            <div className="setting text" onClick={() => this.props.setSetting('metod', 'next')}>
+              {metodName}
             </div>
           </div>
 
@@ -87,7 +83,7 @@ export default Settings;
 
 function onlyInt(s) {
   let str = s.replace(/\D/g, '');
-  if (str === '') return ''; 
+  if (str === '') return '';
   return parseInt(str, 10);
 }
 
@@ -95,5 +91,5 @@ function onlyFloat(str) {
   let s = str.replace(/[^0-9,.]/g, "");
   s = s.replace(/,/g, ".");
   const res = s.match(/^\d*\.?\d*/);
-  return res ? res[0] : s;  // эта проверка rex лишняя, т.к. при таком /^\d*\.?\d*/ всегда res != false 
+  return res ? res[0] : s;  // эта проверка rex лишняя, т.к. при таком /^\d*\.?\d*/ всегда res != false
 }

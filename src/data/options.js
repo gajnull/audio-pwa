@@ -4,19 +4,20 @@ const defaultSettings = {
   ratePause: 1.4,
   metod: 'demand',  // "demand"/"all"/"repeat"
   lastCountRepeatForAll: 3,
-  maxCountRepeatFoRepeat: 20  // только на случай, если забудет выключить
+  maxCountRepeatForRepeat: 20  // только на случай, если забудет выключить
 };
 
 function normalizeStgs(stgs) {
-  const res = { 
+  const res = {
     metod: stgs.metod,
     countRepeat: stgs.countRepeat || defaultSettings.countRepeat,
     speed: parseFloat(stgs.speed) || defaultSettings.speed,
-    ratePause: parseFloat(stgs.ratePause) || defaultSettings.ratePause,  
-    lastCountRepeatForAll: stgs.lastCountRepeatForAll || defaultSettings.lastCountRepeatForAll,  
-    maxCountRepeatFoRepeat: stgs.maxCountRepeatFoRepeat || defaultSettings.maxCountRepeatFoRepeat  
+    ratePause: parseFloat(stgs.ratePause) || defaultSettings.ratePause,
+    lastCountRepeatForAll: stgs.lastCountRepeatForAll,
+    maxCountRepeatForRepeat: stgs.maxCountRepeatForRepeat
   };
-  
+  if (stgs.metod === 'repeat') res.maxCountRepeatForRepeat = res.countRepeat;
+  if (stgs.metod === 'all') res.lastCountRepeatForAll = res.countRepeat;
   return res;
 }
 
@@ -25,7 +26,7 @@ function setMetod(_settings, metod) {
   if (settings.metod === metod) return settings;  // наверное это будет лишнее
   settings.metod = metod;
   if (metod === 'demand') settings.countRepeat = 1;
-  if (metod === 'repeat') settings.countRepeat = settings.maxCountRepeatFoRepeat;
+  if (metod === 'repeat') settings.countRepeat = settings.maxCountRepeatForRepeat;
   if (metod === 'all') settings.countRepeat = settings.lastCountRepeatForAll;
 
   return settings;
@@ -50,21 +51,21 @@ function saveStgs(settings) {
     return true;
   } catch (e) {
      console.log('settings не сохранены в localStorage');
-  }  
-} 
+  }
+}
 
 function getSettings() {
   return fetchStgs() || defaultSettings;
 }
 
 function fetchStgs() {
-  try {  
+  try {
     const ls = JSON.parse(localStorage.getItem('settings_lngt'));
     return ls;
   } catch (e) {
      return false;
-  }      
-} 
+  }
+}
 
 
 export default {
@@ -72,6 +73,6 @@ export default {
   setMetod,
   nextMetod,
   getNameMetod,
-  getSettings,  
+  getSettings,
   saveStgs
 };

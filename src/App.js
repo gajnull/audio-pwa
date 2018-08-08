@@ -37,17 +37,25 @@ export default class App extends React.Component {
 
   setMetod(metod) { // наверное надо совместить с setSettings
     if (this.state.settings.metod === metod) return;
-    const settings = options.setMetod(this.state.settings, metod);
+    let settings = options.normalizeStgs(this.state.settings)
+    settings = options.setMetod(settings, metod);
     this.setState({settings});
   }
 
-  setSetting(stg, value) { 
-    const settings = this.state.settings;
+  setSetting(stg, value) {
     switch (stg) {
       case 'metod':
-        if (value === 'next') 
-    }   
-  }  
+        const metod = options.nextMetod(this.state.settings.metod);
+        this.setMetod(metod);
+        break;
+      default:  // 'speed'/'ratePause'/'countRepeat'
+        this.setState((state) => {
+          const settings = {...state.settings};
+          settings[stg] = value;
+          return {settings};
+        });
+    }
+  }
 
 
   render() {
@@ -61,7 +69,7 @@ export default class App extends React.Component {
               setPlayStatus={this.setPlayStatus} />;
     if (this.state.page === 'settings')
             main = <Settings settings={this.state.settings}
-            setMetod={this.nextMetod} setSettings={this.setSetting} 
+              setSetting={this.setSetting}
               gotoBack={() => {this.gotoPage(this.pageBefore)}} />;
     return (
       <div className="App">
