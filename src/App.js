@@ -22,7 +22,7 @@ export default class App extends React.Component {
     this.gotoPage = this.gotoPage.bind(this);
     this.setMetod = this.setMetod.bind(this);
     this.selectDialog = this.selectDialog.bind(this);
-    this.setSettings = this.setSettings.bind(this);
+    this.setSetting = this.setSetting.bind(this);
   }
 
   selectDialog(ind) {
@@ -41,10 +41,13 @@ export default class App extends React.Component {
     this.setState({settings});
   }
 
-  setSettings(settings) { // data = {countRepeat, speed, ratePause, metod}
-    //const settings = options.correctData(data);
-    this.setState({settings});
-  }
+  setSetting(stg, value) { 
+    const settings = this.state.settings;
+    switch (stg) {
+      case 'metod':
+        if (value === 'next') 
+    }   
+  }  
 
 
   render() {
@@ -58,7 +61,7 @@ export default class App extends React.Component {
               setPlayStatus={this.setPlayStatus} />;
     if (this.state.page === 'settings')
             main = <Settings settings={this.state.settings}
-            setMetod={this.setMetod} setSettings={this.setSettings} 
+            setMetod={this.nextMetod} setSettings={this.setSetting} 
               gotoBack={() => {this.gotoPage(this.pageBefore)}} />;
     return (
       <div className="App">

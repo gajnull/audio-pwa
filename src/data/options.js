@@ -1,3 +1,24 @@
+const defaultSettings = {
+  countRepeat: 1,
+  speed: 1,
+  ratePause: 1.4,
+  metod: 'demand',  // "demand"/"all"/"repeat"
+  lastCountRepeatForAll: 3,
+  maxCountRepeatFoRepeat: 20  // только на случай, если забудет выключить
+};
+
+function normalizeStgs(stgs) {
+  const res = { 
+    metod: stgs.metod,
+    countRepeat: stgs.countRepeat || defaultSettings.countRepeat,
+    speed: parseFloat(stgs.speed) || defaultSettings.speed,
+    ratePause: parseFloat(stgs.ratePause) || defaultSettings.ratePause,  
+    lastCountRepeatForAll: stgs.lastCountRepeatForAll || defaultSettings.lastCountRepeatForAll,  
+    maxCountRepeatFoRepeat: stgs.maxCountRepeatFoRepeat || defaultSettings.maxCountRepeatFoRepeat  
+  };
+  
+  return res;
+}
 
 function setMetod(_settings, metod) {
   const settings = {..._settings};
@@ -8,18 +29,6 @@ function setMetod(_settings, metod) {
   if (metod === 'all') settings.countRepeat = settings.lastCountRepeatForAll;
 
   return settings;
-}
-
-// потом будем сохранять в localStorage
-function getSettings() {
-  return {
-    countRepeat: 1,
-    speed: 1,
-    ratePause: 1.4,
-    metod: 'demand',  // "demand"/"all"/"repeat"
-    lastCountRepeatForAll: 3,
-    maxCountRepeatFoRepeat: 20  // только на случай, если забудет выключить
-  };
 }
 
 function getNameMetod(metod) {
@@ -34,10 +43,35 @@ function nextMetod(metod) {
   if (metod === 'all') return 'demand';
 }
 
+function saveStgs(settings) {
+  const ls = JSON.stringify(settings);
+  try {
+    localStorage.setItem('settings_lngt', ls);
+    return true;
+  } catch (e) {
+     console.log('settings не сохранены в localStorage');
+  }  
+} 
+
+function getSettings() {
+  return fetchStgs() || defaultSettings;
+}
+
+function fetchStgs() {
+  try {  
+    const ls = JSON.parse(localStorage.getItem('settings_lngt'));
+    return ls;
+  } catch (e) {
+     return false;
+  }      
+} 
+
 
 export default {
-  getSettings,
+  normalizeStgs,
   setMetod,
   nextMetod,
-  getNameMetod
+  getNameMetod,
+  getSettings,  
+  saveStgs
 };

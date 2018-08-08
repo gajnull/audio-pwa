@@ -5,7 +5,7 @@ import options from '../data/options';
 
 import './css/Settings.css';
 
- /* {settings, setSettings, setMetod, gotoBack} */
+ /* {settings, setSetting, gotoBack} */
  // settings:  {countRepeat: 1, speed: 1, ratePause: 1.4, metod: 'demand'}  // "demand"/"all"/"repeat"
 
 class Settings extends React.Component {
@@ -13,31 +13,28 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.handlerOnChange = this.handlerOnChange.bind(this);
-    this.nextMetod = this.nextMetod.bind(this);
   }
 
   handlerOnChange(e) {
-    let s;
-    switch(e.target.name) {
+    let value = e.target.value;
+    let name = e.target.name;
+    switch(name) {
       case 'countRepeat':
-        s = toInt(e.target.value);
+        value = onlyInt(value);
         break;
       case 'speed':
-        s = e.target.value;
-        break;
       case 'ratePause':
-        s = e.target.value;
+        value = onlyFloat(value);
         break;
+      default:  // это не должно случиться, но без этого получаем warning
+        return;
     }
-    const settings = this.props.settings;
+    /*const settings = this.props.settings;
     settings[e.target.name] = s;
-    this.props.setSettings(settings);
+    this.props.setSettings(settings);*/
+    this.props.setSetting(name, value);
   }
 
-  nextMetod() {
-    const metod = options.nextMetod(this.props.settings.metod);
-    this.props.setMetod(metod);
-  }
 
   render() {
     const {gotoBack, settings} = this.props;
@@ -51,7 +48,9 @@ class Settings extends React.Component {
 
           <div className="item">
             <div className="label"> Метод повторений </div>
-            <div className="setting text" onClick={this.nextMetod}> {metodName} </div>
+            <div className="setting text" onClick={() => this.props.setSetting('metod', 'next')}> 
+              {metodName} 
+            </div>
           </div>
 
           { notDemand &&
@@ -83,15 +82,18 @@ const Item = (props) => (
 export default Settings;
 
 
-function toInt(s) {
+
+
+
+function onlyInt(s) {
   let str = s.replace(/\D/g, '');
-  if (!str) return ''; 
-  return parseInt(str);
+  if (str === '') return ''; 
+  return parseInt(str, 10);
 }
 
-function toFloat(s) {
-  let str = s.replace(/[^0-9,.]/g, "");
-  str = str.replace(/,/g, ".");
-  const res = str.match(/^(\d)*\.(\d)*/);
-  if
+function onlyFloat(str) {
+  let s = str.replace(/[^0-9,.]/g, "");
+  s = s.replace(/,/g, ".");
+  const res = s.match(/^\d*\.?\d*/);
+  return res ? res[0] : s;  // эта проверка rex лишняя, т.к. при таком /^\d*\.?\d*/ всегда res != false 
 }
