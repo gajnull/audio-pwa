@@ -3,7 +3,7 @@ import TopMnu from './TopMnuStart';
 import './css/Start.css';
 
 const Start = ({files, selectDialog, showStatistics,
-                settings, setSettings, gotoPage}) => (
+                settings, setSettings}) => (
 
   <div className="StartUl">
     <TopMnu setSettings={setSettings} showStatistic={showStatistics}

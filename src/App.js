@@ -1,6 +1,7 @@
 import React from 'react';
 import files from './data/metaData';  // [{name, txt, audio}, ...]
 import * as options from './data/options';
+import * as statistic from './data/statistic';
 import './reset.css'; // попробовать это убрать
 import './App.css';
 import Start from './Components/Start';
@@ -20,7 +21,7 @@ export default class App extends React.Component {
     super();
     this.pageBefore = 'start';
     this.gotoPage = this.gotoPage.bind(this);
-    this.selectDialog = this.selectDialog.bind(this);    
+    this.selectDialog = this.selectDialog.bind(this);
     this.setMetod = this.setMetod.bind(this);
     this.saveSettings = this.saveSettings.bind(this);
     this.setDefSettings = this.setDefSettings.bind(this);
@@ -81,13 +82,21 @@ export default class App extends React.Component {
             main = <Settings settings={this.state.settings} setDefSettings={this.setDefSettings}
               setSetting={this.setSetting} saveSettings={this.saveSettings}
               gotoBack={() => {this.gotoPage(this.pageBefore)}} />;
+    if (this.state.page === 'stats')
+            main = <Settings gotoStart={() => this.gotoPage('start')}
+              data={statistic.getData} />;
+
+    const menu = (this.state.page !== 'stats') ?
+              <BottomMnu activeMetod={this.state.settings.metod}
+                isSettings={this.state.page === 'settings'}
+                setMetod={this.setMetod}
+                gotoSettings={() => {this.gotoPage('settings')}} />
+                : null;
+
     return (
       <div className="App">
         {main}
-        <BottomMnu activeMetod={this.state.settings.metod}
-                  isSettings={this.state.page === 'settings'}
-                  setMetod={this.setMetod}
-                  gotoSettings={() => {this.gotoPage('settings')}} />
+        {menu}
       </div>
     );
   }

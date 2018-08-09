@@ -63,14 +63,18 @@ class Dialog extends React.Component {
   }
 
   handlePlayBefore() {
-    this.poz--;
-    this._gotoPoz()
+    if (this.poz > 0) {
+      this.poz--;
+      this._gotoPoz();
+    }
     player.playAtOnce();
   }
 
   handlePlayAfter() {
-    this.poz++;
-    this._gotoPoz()
+    if (this.poz < this.data.length - 1) {
+      this.poz++;
+      this._gotoPoz();
+    }
     player.playAtOnce();
   }
 
@@ -92,14 +96,16 @@ class Dialog extends React.Component {
     player.settings(settings);
     return (
       <div className="Dialog">
-        <TopMnu gotoHome={gotoStart} gotoBegin={this.gotoBegin} 
+        <TopMnu gotoHome={gotoStart} gotoBegin={this.gotoBegin}
                 tooglePlay={this.handleTooglePlay} isPlay={this.state.isPlay} />
         <div className="items-dlg">
+          <div className="empty-dlg" onClick={this.handlePlayBefore} ></div>
           <div>
-          <ItemDialog txt={this.state.before} onClick={this.handlePlayBefore} />
-          <ItemDialog txt={this.state.current} active onClick={this.handleTooglePlay} />
-          <ItemDialog txt={this.state.after} onClick={this.handlePlayAfter} />
+            <ItemDialog txt={this.state.before} onClick={this.handlePlayBefore} />
+            <ItemDialog txt={this.state.current} active onClick={this.handleTooglePlay} />
+            <ItemDialog txt={this.state.after} onClick={this.handlePlayAfter} />
           </div>
+          <div className="empty-dlg" onClick={this.handlePlayAfter} ></div>
         </div>
       </div>
     );
