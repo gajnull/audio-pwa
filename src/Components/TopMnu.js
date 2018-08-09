@@ -13,11 +13,11 @@ const TopMnuItem = (props) => (
   </div>
 );
 
-const TopMnuItemText = ({title}) => (
+/*const TopMnuItemText = ({title}) => (
   <div className="top-mnu-item" >
     <span> {title} </span>
   </div>
-);
+);*/
 
 
-export {TopMnu, TopMnuItem, TopMnuItemText};
+export {TopMnu, TopMnuItem};

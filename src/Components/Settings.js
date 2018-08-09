@@ -1,11 +1,11 @@
 import React from 'react';
 import TopMnu from './TopMnuSettings';
 
-import options from '../data/options';
+import {getNameMetod} from '../data/options';
 
 import './css/Settings.css';
 
- /* {settings, setSetting, gotoBack} */
+ /* {settings, setSetting, setDefSettings, saveSettings, gotoBack} */
  // settings:  {countRepeat: 1, speed: 1, ratePause: 1.4, metod: 'demand'}  // "demand"/"all"/"repeat"
 
 class Settings extends React.Component {
@@ -13,6 +13,10 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.handlerOnChange = this.handlerOnChange.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.props.saveSettings();
   }
 
   handlerOnChange(e) {
@@ -33,18 +37,18 @@ class Settings extends React.Component {
 
 
   render() {
-    const {gotoBack, settings} = this.props;
+    const {setSetting, setDefSettings, gotoBack, settings} = this.props;
     const {metod, countRepeat, speed, ratePause} = settings;
-    const metodName = options.getNameMetod(metod);
+    const metodName = getNameMetod(metod);
     const notDemand = (metod !== 'demand');
     return (
       <div className="settings">
-        <TopMnu gotoBack={gotoBack} />
+        <TopMnu gotoBack={gotoBack} setDefSettings={setDefSettings} />
         <div className="items">
 
           <div className="item">
             <div className="label"> Метод повторений </div>
-            <div className="setting text" onClick={() => this.props.setSetting('metod', 'next')}>
+            <div className="setting text" onClick={() => setSetting('metod', 'next')}>
               {metodName}
             </div>
           </div>

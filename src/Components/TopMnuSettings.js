@@ -1,14 +1,15 @@
 import React from 'react';
 
-import {TopMnu, TopMnuItem, TopMnuItemText} from './TopMnu';
+import {TopMnu, TopMnuItem} from './TopMnu';
 
 import back from './img/back.png';
+import def from './img/default.png';
 
 
-const TopMnuSettings = ({gotoBack}) => (
+const TopMnuSettings = ({setDefSettings, gotoBack}) => (
   <TopMnu>
       <TopMnuItem img={back} alt="home" onClick={gotoBack} />
-      <TopMnuItemText title="Установки" />
+      <TopMnuItem img={def} alt="home" onClick={setDefSettings} />
   </TopMnu>
 );
 

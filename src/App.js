@@ -1,6 +1,6 @@
 import React from 'react';
 import files from './data/metaData';  // [{name, txt, audio}, ...]
-import options from './data/options';
+import * as options from './data/options';
 import './reset.css'; // попробовать это убрать
 import './App.css';
 import Start from './Components/Start';
@@ -20,8 +20,10 @@ export default class App extends React.Component {
     super();
     this.pageBefore = 'start';
     this.gotoPage = this.gotoPage.bind(this);
+    this.selectDialog = this.selectDialog.bind(this);    
     this.setMetod = this.setMetod.bind(this);
-    this.selectDialog = this.selectDialog.bind(this);
+    this.saveSettings = this.saveSettings.bind(this);
+    this.setDefSettings = this.setDefSettings.bind(this);
     this.setSetting = this.setSetting.bind(this);
   }
 
@@ -35,26 +37,34 @@ export default class App extends React.Component {
     this.setState({page});
   }
 
-  setMetod(metod) { // наверное надо совместить с setSettings
+  setMetod(metod) {
     if (this.state.settings.metod === metod) return;
-    let settings = options.normalizeStgs(this.state.settings)
+    let settings = this.saveSettings() || this.state.settings;
     settings = options.setMetod(settings, metod);
     this.setState({settings});
   }
 
-  setSetting(stg, value) {
-    switch (stg) {
+  saveSettings() {
+    return options.saveSettings(this.state.settings);
+  }
+
+  setSetting(name, value) {
+    switch (name) {
       case 'metod':
-        const metod = options.nextMetod(this.state.settings.metod);
-        this.setMetod(metod);
+        this.setMetod(value);
         break;
       default:  // 'speed'/'ratePause'/'countRepeat'
         this.setState((state) => {
           const settings = {...state.settings};
-          settings[stg] = value;
+          settings[name] = value;
           return {settings};
         });
     }
+  }
+
+  setDefSettings() {
+    const settings = options.getDefSettings(this.state.settings);
+    this.setState({settings});
   }
 
 
@@ -68,8 +78,8 @@ export default class App extends React.Component {
               gotoStart={() => this.gotoPage('start')} settings={this.state.settings}
               setPlayStatus={this.setPlayStatus} />;
     if (this.state.page === 'settings')
-            main = <Settings settings={this.state.settings}
-              setSetting={this.setSetting}
+            main = <Settings settings={this.state.settings} setDefSettings={this.setDefSettings}
+              setSetting={this.setSetting} saveSettings={this.saveSettings}
               gotoBack={() => {this.gotoPage(this.pageBefore)}} />;
     return (
       <div className="App">
