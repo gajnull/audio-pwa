@@ -1,13 +1,14 @@
 import React from 'react';
-import TopMnu from './TopMnuStart';
+import {TopMnu, TopMnuItem} from './TopMnu';
+import statistics from './img/statistics.png';
 import './css/Start.css';
 
-const Start = ({files, selectDialog, showStatistics,
-                settings, setSettings}) => (
+const Start = ({files, selectDialog, gotoStats}) => (
 
   <div className="StartUl">
-    <TopMnu setSettings={setSettings} showStatistic={showStatistics}
-            settings={settings} />
+    <TopMnu>
+      <TopMnuItem img={statistics} alt="Statistics" onClick={gotoStats} />
+    </TopMnu>    
     <ul>
       { files.map((file, index) =>
           <li key={file.name} onClick={(e) => selectDialog(index)}>{file.name}</li>)

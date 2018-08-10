@@ -1,13 +1,23 @@
 
 const getData = () => {
-  fn();
+  return [
+    {name: 'Количество запусков', value: 0},
+    {name: 'Время работы с диалогами', value: 0, edIzm: 'час'}, 
+    {name: 'Количество диалогов', value: 0}, 
+    {name: 'Другие показатели...', value: '?'}
+  ];
 };
 
-function fn() {
-
+const setParam = (name, value) => {
+  //
 }
+
+/*function fn() {
+  return 'Данные по использованию программы:';
+}*/
 
 
 export {
-  getData
+  getData,
+  setParam
 };
