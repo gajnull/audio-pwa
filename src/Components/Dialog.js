@@ -13,13 +13,15 @@ class Dialog extends React.Component {
 
   constructor(props) {
     super(props);
-
+    this.transl =[];
     this.data = [];
     this.poz = 0;
     const { before, current, after, _from, _to } =  modelTxt.getItems(this.data, this.poz);
+    const transl = modelTxt.getTransl(this.transl, this.poz);
     this.state = { isPlay: false,
                    before,
                    current,
+                   transl,
                    after
                  };
     player.range(_from, _to);
@@ -39,6 +41,10 @@ class Dialog extends React.Component {
               this.data = data;
               this._gotoPoz();
              });
+    if (this.props.file.transl) {
+      modelTxt.loadLngt('data/' + this.props.file.transl)
+              .then(data => { this.transl = data });
+    }
   }
 
   componentWillUnmount() {
@@ -87,12 +93,14 @@ class Dialog extends React.Component {
 
   _gotoPoz() {
     const { before, current, after, _from, _to } =  modelTxt.getItems(this.data, this.poz);
+    const transl = modelTxt.getTransl(this.transl, this.poz);
     player.range(_from, _to);
-    this.setState({ before, current, after });
+    this.setState({ before, current, after, transl });
   }
 
   render() {
     const {gotoStart, settings} = this.props;
+    const isTtransl = settings.transl && this.state.transl;
     player.settings(settings);
     return (
       <div className="Dialog">
@@ -103,6 +111,7 @@ class Dialog extends React.Component {
           <div>
             <ItemDialog txt={this.state.before} onClick={this.handlePlayBefore} />
             <ItemDialog txt={this.state.current} active onClick={this.handleTooglePlay} />
+            <ItemDialog txt={this.state.transl} translate onClick={this.handleTooglePlay} />
             <ItemDialog txt={this.state.after} onClick={this.handlePlayAfter} />
           </div>
           <div className="empty-dlg" onClick={this.handlePlayAfter} ></div>

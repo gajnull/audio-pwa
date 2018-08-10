@@ -1,23 +1,30 @@
 import React from 'react';
 
-const style = {
+const styleAround = {
   fontSize: '1.4em',
   color: 'grey',
   lineHeight: '1.1em'
 };
 
 const styleActive = {
-  ...style,
   fontSize: '2em',
-  color: 'black'
+  color: 'black',
+  lineHeight: '1.2em'
 };
 
-const ItemDialog = ({txt, active, onClick}) => {
+const styleTtranl = {
+  fontSize: '1.7em',
+  color: 'blue'
+};
 
-  const styleItem = active ? styleActive : style;
+const ItemDialog = ({txt, active, translate, onClick}) => {
+
+  let style = styleAround;
+  if (active) style = styleActive;
+  if (translate) style = styleTtranl;
 
   return (
-    <span  dangerouslySetInnerHTML = {{__html: txt}} style={styleItem} onClick={onClick} />
+    <span  dangerouslySetInnerHTML = {{__html: txt}} style={style} onClick={onClick} />
   );
 
 }
