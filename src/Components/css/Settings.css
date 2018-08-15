@@ -1,45 +1,52 @@
-.settings {
+#settings {
   flex: 1;
   text-align: left;
   height: 100%;
 }
 
-.settings .items {
-  /*display: flex;
-  justify-content: center; Центрирование по горизонтали
-  align-items: center;     Центрирование по вертикали 
-  margin: 10px; */
+#settings .items {
   padding-top: 5%;
 }
 
-.settings .item {
-  margin: 15px 7px; 
+#settings .item {
+  margin: 15px 7px;
   padding: 5px;
-  border-radius: 5px; 
+  border-radius: 5px;
   background-color: #eee;
   border: 0.5px solid #ddd;
 }
 
-.settings .label {
+#settings .label {
   display: inline-block;
   vertical-align: middle;
   width: 62%;
   font-size: 1.1em;
 }
 
-.settings .setting {
+#settings .setting {
   display: inline-block;
   vertical-align: middle;
   min-width: 25px;
   width: 18%;
   padding: 5px;
+  border: 0.5px solid #ddd;
   font-size: 1.1em;
   text-align: center;
 }
 
-.settings .setting.text {
+#settings .setting.text {
   width: 30%;
+  border: none;
   font-size: 1.1em;
   font-style: italic;
   text-align: left;
+}
+
+#settings .setting.noborder {
+  border: none;
+}
+
+#settings .checkbox {
+  width: 17px;
+  height: 17px;
 }

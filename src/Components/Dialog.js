@@ -2,22 +2,20 @@ import React from 'react';
 import TopMnu from './TopMnuDialog';
 import ItemDialog from './ItemDialog';
 import './css/Dialog.css';
-import modelTxt from '../data/modelTxt';
-import player from './player';
+//import modelTxt from '../data/modelTxt';
+import dataTxt from '../data/dataTxt';
+import player from '../data/player';
 
-// props = {ind, file, gotoStart, settings}
-// file = {name, txt, audio} settings = {countRepeat, speed, ratePause, metod}
+// props = {file, gotoStart, setPlayStatus}
+// file = {name, txt, audio} 
 
 class Dialog extends React.Component {
 
-
   constructor(props) {
     super(props);
-    this.transl =[];
-    this.data = [];
     this.poz = 0;
-    const { before, current, after, _from, _to } =  modelTxt.getItems(this.data, this.poz);
-    const transl = modelTxt.getTransl(this.transl, this.poz);
+    const { before, current, after, _from, _to } =  dataTxt.getItems(this.poz);
+    const transl = dataTxt.getTransl(this.poz);
     this.state = { isPlay: false,
                    before,
                    current,
@@ -26,7 +24,7 @@ class Dialog extends React.Component {
                  };
     player.range(_from, _to);
 
-    this.gotoBegin = this.gotoBegin.bind(this);
+    this.toBegin = this.toBegin.bind(this);
     this.handlePlayBefore = this.handlePlayBefore.bind(this);
     this.handlePlayAfter = this.handlePlayAfter.bind(this);
     player.setGotoNextFn(this.nextPoz.bind(this));  // возможность для плеера переходить к слудующему участку
@@ -36,20 +34,17 @@ class Dialog extends React.Component {
   }
 
   componentDidMount() {
-    modelTxt.loadLngt('data/' + this.props.file.txt)  // т.к. в this._gotoPoz() используется setState
-            .then(data => {
-              this.data = data;
-              this._gotoPoz();
-             });
+    dataTxt.loadLngt(this.props.file.txt)  // т.к. в this._gotoPoz() используется setState
+            .then( () => { this._gotoPoz() });
     if (this.props.file.transl) {
-      modelTxt.loadLngt('data/' + this.props.file.transl)
-              .then(data => { this.transl = data });
+      dataTxt.loadTransl(this.props.file.transl)
+              .then(transl => { this.setState({transl}) });
     }
   }
 
   componentWillUnmount() {
     player.unload();
-    this.data = null;
+    dataTxt.unload();  // возможно потом это надо занести в зарузку с проверкой на смену файла
   }
 
   setPlayStatus(isPlay) {
@@ -58,7 +53,7 @@ class Dialog extends React.Component {
     });
   }
 
-  gotoBegin() {
+  toBegin() {
     player.stop();
     this.poz = 0;
     this._gotoPoz();
@@ -77,7 +72,7 @@ class Dialog extends React.Component {
   }
 
   handlePlayAfter() {
-    if (this.poz < this.data.length - 1) {
+    if (!dataTxt.isLastPoz(this.poz)) {
       this.poz++;
       this._gotoPoz();
     }
@@ -85,26 +80,25 @@ class Dialog extends React.Component {
   }
 
   nextPoz() {
-    if (modelTxt.isLastPoz(this.data, this.poz)) return false;
+    if (dataTxt.isLastPoz(this.poz)) return false;
     this.poz++;
     this._gotoPoz();
     return true;
   }
 
   _gotoPoz() {
-    const { before, current, after, _from, _to } =  modelTxt.getItems(this.data, this.poz);
-    const transl = modelTxt.getTransl(this.transl, this.poz);
+    const { before, current, after, _from, _to } =  dataTxt.getItems(this.poz);
+    const transl = dataTxt.getTransl(this.poz);
     player.range(_from, _to);
     this.setState({ before, current, after, transl });
   }
 
   render() {
-    const {gotoStart, settings} = this.props;
-    const isTtransl = settings.transl && this.state.transl;
-    player.settings(settings);
+    const {gotoStart} = this.props;
+    //player.settings(settings);
     return (
       <div className="Dialog">
-        <TopMnu gotoHome={gotoStart} gotoBegin={this.gotoBegin}
+        <TopMnu gotoHome={gotoStart} gotoBegin={this.toBegin}
                 tooglePlay={this.handleTooglePlay} isPlay={this.state.isPlay} />
         <div className="items-dlg">
           <div className="empty-dlg" onClick={this.handlePlayBefore} ></div>

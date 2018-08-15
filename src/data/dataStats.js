@@ -1,6 +1,3 @@
-
-
-
 const getData = () => {
   return [
     {name: 'Количество запусков', value: 0},
@@ -18,9 +15,12 @@ const setParam = (name, value) => {
   return 'Данные по использованию программы:';
 }*/
 
-const statistic = {  getData, setParam};
+const stats = {
+  getData,
+  setParam
+};
 
-export default statistic;
+export default stats;
 
 export {
   getData,
