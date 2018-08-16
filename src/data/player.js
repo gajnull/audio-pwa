@@ -1,4 +1,7 @@
+import dataSettings from './dataSettings';
+
 const player = {};
+const path = 'data/';
 
 let audio,
     _from = '0', _to = '0',
@@ -12,7 +15,7 @@ let audio,
 
 
 player.load = (src) => {
-  audio = new Audio(src);
+  audio = new Audio(path + src);
   //audio.onloadedmetadata = () => { duration = audio.duration };
 };
 
@@ -21,10 +24,6 @@ player.unload = (src) => {
   audio.src = "";
 };
 
-player.settings = (settings) => {
-  ({countRepeat, speed, ratePause, metod} = settings);
-  audio.defaultPlaybackRate = speed;
-}
 
 player.range = (inFrom, inTo) => {
   _from = inFrom;
@@ -64,8 +63,14 @@ player.stop = () => {
 
 function playFromBegin() {
   counter = 0;  // наверное это лишнее
+  loadSettings();
   play();
   fnSetPlayStatus(true);
+}
+
+function loadSettings() {
+  ({countRepeat, speed, ratePause, metod} = dataSettings.getPlayerSettings());  
+  audio.defaultPlaybackRate = speed;
 }
 
 function play() {

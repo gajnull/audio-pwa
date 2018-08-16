@@ -9,7 +9,15 @@ const getData = () => {
 
 const setParam = (name, value) => {
   //
-}
+};
+
+const add = (file) => {
+  //
+};
+
+const stop = () => {
+  //
+};
 
 /*function fn() {
   return 'Данные по использованию программы:';
@@ -17,7 +25,9 @@ const setParam = (name, value) => {
 
 const stats = {
   getData,
-  setParam
+  setParam,
+  add,
+  stop
 };
 
 export default stats;

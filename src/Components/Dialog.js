@@ -2,12 +2,11 @@ import React from 'react';
 import TopMnu from './TopMnuDialog';
 import ItemDialog from './ItemDialog';
 import './css/Dialog.css';
-//import modelTxt from '../data/modelTxt';
 import dataTxt from '../data/dataTxt';
 import player from '../data/player';
-
+import dataStats from '../data/dataStats';
 // props = {file, gotoStart, setPlayStatus}
-// file = {name, txt, audio} 
+// file = {name, txt, transl, audio} 
 
 class Dialog extends React.Component {
 
@@ -30,7 +29,7 @@ class Dialog extends React.Component {
     player.setGotoNextFn(this.nextPoz.bind(this));  // возможность для плеера переходить к слудующему участку
     player.onSetPlayStatus(this.setPlayStatus.bind(this));
 
-    player.load('data/' + this.props.file.audio);
+    player.load(this.props.file.audio);
   }
 
   componentDidMount() {
@@ -40,11 +39,13 @@ class Dialog extends React.Component {
       dataTxt.loadTransl(this.props.file.transl)
               .then(transl => { this.setState({transl}) });
     }
+    dataStats.add(this.props.file);
   }
 
   componentWillUnmount() {
     player.unload();
     dataTxt.unload();  // возможно потом это надо занести в зарузку с проверкой на смену файла
+    dataStats.stop();
   }
 
   setPlayStatus(isPlay) {
@@ -94,7 +95,7 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const {gotoStart} = this.props;
+    const {gotoStart, isTransl} = this.props;
     //player.settings(settings);
     return (
       <div className="Dialog">
@@ -105,7 +106,9 @@ class Dialog extends React.Component {
           <div>
             <ItemDialog txt={this.state.before} onClick={this.handlePlayBefore} />
             <ItemDialog txt={this.state.current} active onClick={this.handleTooglePlay} />
-            <ItemDialog txt={this.state.transl} translate onClick={this.handleTooglePlay} />
+            { isTransl &&
+              <ItemDialog txt={this.state.transl} translate onClick={this.handleTooglePlay} />
+            }
             <ItemDialog txt={this.state.after} onClick={this.handlePlayAfter} />
           </div>
           <div className="empty-dlg" onClick={this.handlePlayAfter} ></div>

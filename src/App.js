@@ -1,7 +1,6 @@
 import React from 'react';
 import { loadFiles } from './data/dataFiles';
 import dataSettings from './data/dataSettings';
-import dataStats from './data/dataStats';
 import './reset.css'; // попробовать это убрать
 import './App.css';
 import Start from './Components/Start';
@@ -60,13 +59,14 @@ export default class App extends React.Component {
 
 
   render() {
+    const isTransl = dataSettings.getPlayerSettings().transl;
     let main = <p> Unknown page </p>
     if (this.state.page === 'start')
             main = <Start files={this.state.files} selectDialog={this.selectDialog} gotoStats={() => this.gotoPage('statistic')}/>;
     if (this.state.page === 'dialog')
             main = <Dialog file={this.state.files[this.ind]}
               gotoStart={() => this.gotoPage('start')}
-              setPlayStatus={this.setPlayStatus} />;
+              setPlayStatus={this.setPlayStatus} isTransl={isTransl} />;
     if (this.state.page === 'settings')
             main = <Settings setMetod={this.setMetod} metod={this.state.metod}
               gotoBack={() => {this.gotoPage(this.pageBefore)}} />;

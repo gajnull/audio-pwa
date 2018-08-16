@@ -20,8 +20,23 @@ const getTimeSettings = () => ({
   countRepeatRepeat: settings.countRepeatRepeat,
   speed: settings.speed,
   ratePause: settings.ratePause,
+  transl: settings.transl // проверить нужно ли это
+});
+
+const getPlayerSettings = () => ({
+  countRepeat: getCountRepeat(),
+  metod: settings.metod,
+  speed: settings.speed,
+  ratePause: settings.ratePause,
   transl: settings.transl
 });
+
+function getCountRepeat() {
+  let count = 1;
+  if (settings.metod === 'all') count = settings.countRepeatAll;
+  if (settings.metod === 'repeat') count = settings.countRepeatRepeat;
+  return count;
+}
 
 // Возврат к настройкам по умолчанию
 const setDefSettings = () => {
@@ -83,6 +98,7 @@ function fetchSettings() {
 export default {
   initSettings,
   getTimeSettings,
+  getPlayerSettings,
   setDefSettings,
   setTimeSetting,
   setMetod,
