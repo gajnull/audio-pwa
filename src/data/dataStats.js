@@ -1,3 +1,5 @@
+const defStats = {};
+
 const getData = () => {
   return [
     {name: 'Количество запусков', value: 0},

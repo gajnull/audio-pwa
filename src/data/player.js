@@ -3,7 +3,7 @@ import dataSettings from './dataSettings';
 const player = {};
 const path = 'data/';
 
-let audio,
+let audio = new Audio(),
     _from = '0', _to = '0',
     counter = 0,
     timerPlay, timerPause,
@@ -15,7 +15,7 @@ let audio,
 
 
 player.load = (src) => {
-  audio = new Audio(path + src);
+  audio.src = (path + src);
   //audio.onloadedmetadata = () => { duration = audio.duration };
 };
 
@@ -63,13 +63,13 @@ player.stop = () => {
 
 function playFromBegin() {
   counter = 0;  // наверное это лишнее
-  loadSettings();
+  //loadSettings();
   play();
   fnSetPlayStatus(true);
 }
 
-function loadSettings() {
-  ({countRepeat, speed, ratePause, metod} = dataSettings.getPlayerSettings());  
+player.loadSettings = () => {
+  ({countRepeat, speed, ratePause, metod} = dataSettings.getPlayerSettings());
   audio.defaultPlaybackRate = speed;
 }
 

@@ -6,7 +6,7 @@ import dataTxt from '../data/dataTxt';
 import player from '../data/player';
 import dataStats from '../data/dataStats';
 // props = {file, gotoStart, setPlayStatus}
-// file = {name, txt, transl, audio} 
+// file = {name, txt, transl, audio}
 
 class Dialog extends React.Component {
 
@@ -39,6 +39,7 @@ class Dialog extends React.Component {
       dataTxt.loadTransl(this.props.file.transl)
               .then(transl => { this.setState({transl}) });
     }
+    player.loadSettings();
     dataStats.add(this.props.file);
   }
 

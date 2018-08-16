@@ -1,6 +1,7 @@
 import React from 'react';
 import { loadFiles } from './data/dataFiles';
 import dataSettings from './data/dataSettings';
+import player from './data/player';
 import './reset.css'; // попробовать это убрать
 import './App.css';
 import Start from './Components/Start';
@@ -34,10 +35,6 @@ export default class App extends React.Component {
   showMnu(isShow) { // пока не используется
     this.setState({mnu: isShow});
   }
-
-  setDataStats(name, value) { // пока не используется
-    statistic.setParam(name, value);
-  }
 */
   selectDialog(ind) {
     this.ind = ind;
@@ -54,6 +51,7 @@ export default class App extends React.Component {
   setMetod(_metod) {
     if (this.state.metod === _metod) return;
     const metod = dataSettings.setMetod(_metod);
+    player.loadSettings(); // на случай, если метод меняется через BottomMnu
     this.setState({metod});
   }
 
