@@ -1,40 +1,35 @@
-const defStats = {};
 
-const getData = () => {
-  return [
-    {name: 'Количество запусков', value: 0},
-    {name: 'Время работы с диалогами', value: 0, edIzm: 'час'},
-    {name: 'Количество диалогов', value: 0},
-    {name: 'Другие показатели...', value: '?'}
-  ];
+const zeroStats = {
+  countRuns: 0, 
+  workingTime: 0, 
+  countDialogs: 0
+};
+
+let stats = zeroStats;
+
+const getStats = () => {
+  return stats;
 };
 
 const setParam = (name, value) => {
   //
 };
 
-const add = (file) => {
+// Запускаем отсчёт времени работы с диалогом
+const start = (dialog) => {
   //
 };
 
+// Останавливаем отсчёт времени работы с диалогом и записываем в статистику
 const stop = () => {
   //
 };
 
-/*function fn() {
-  return 'Данные по использованию программы:';
-}*/
 
-const stats = {
-  getData,
+
+export default {
+  getStats,
   setParam,
-  add,
+  start,
   stop
-};
-
-export default stats;
-
-export {
-  getData,
-  setParam
 };

@@ -5,42 +5,23 @@ import home from './img/home.png';
 import clean from './img/clean.png';
 import './css/Stats.css';
 
-const Stats = ({gotoStart}) => (
-  <div id="StatsUl">
-    <TopMnu>
-        <TopMnuItem img={home} alt="home" onClick={gotoStart} />
-        <TopMnuItem img={clean} alt="clean" onClick={gotoStart} />
-    </TopMnu>
-    <div className="title"> Статистика использования </div>
-    <div style={{fontWeight: 'bold'}} > (Пока не отсеживается!!!) </div>
-    {
-      statistic.getData().map((item) => (
-        <Item key={item.name} item={item} />
-      ))
-    }
-  </div>
-);
-
-class Stats extends React.Component {
-
-  state = dataStats.getStats();
-
-  constructor(props) {
-    super(props);
-
-  }
-
-  render() {
-    const {countRuns, workingTime, countDialogs} = this.state;
-    //player.settings(settings);
-    return ();
-  }
-
+const Stats = (props) => {
+  const {countRuns, workingTime, countDialogs} = dataStats.getStats();
+  return (
+    <div id="StatsUl">
+      <TopMnu>
+          <TopMnuItem img={home} alt="home" onClick={props.gotoStart} />
+          <TopMnuItem img={clean} alt="clean" onClick={props.gotoStart} />
+      </TopMnu>
+      <div className="title"> Статистика использования </div>
+      <Item name="Количество запусков приложения: " value={countRuns} /> 
+      <Item name="Общее время работы с диалогами: " value={workingTime} /> 
+      <Item name="Количество проработанных диалогов: " value={countDialogs} />
+    </div> 
+  );
 }
 
-
-
-const Item = ({item}) => (
+const Item = (item) => (
   <div className="item">
     <div className="name">{item.name} </div>
     <div className="value">{item.value} </div>
@@ -49,3 +30,5 @@ const Item = ({item}) => (
 
 
 export default Stats;
+
+

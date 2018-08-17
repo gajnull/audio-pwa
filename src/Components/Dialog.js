@@ -5,9 +5,9 @@ import './css/Dialog.css';
 import dataTxt from '../data/dataTxt';
 import player from '../data/player';
 import dataStats from '../data/dataStats';
+
 // props = {file, gotoStart, setPlayStatus}
 // file = {name, txt, transl, audio}
-
 class Dialog extends React.Component {
 
   constructor(props) {
@@ -40,7 +40,7 @@ class Dialog extends React.Component {
               .then(transl => { this.setState({transl}) });
     }
     player.loadSettings();
-    dataStats.add(this.props.file);
+    dataStats.start(this.props.file);
   }
 
   componentWillUnmount() {
