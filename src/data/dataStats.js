@@ -1,7 +1,7 @@
 
 const zeroStats = {
   countRuns: 0,
-  workingTime: 0,
+  workingTime: 0, // в минутах
   countDialogs: 0,
   dialogs: [] // {name, count}
 };
@@ -12,30 +12,36 @@ const getStats = () => {
   return fetchStats() || zeroStats;
 };
 
+const formatPeriod = (totalMin) => {
+  const hour = Math.floor(totalMin / 60);
+  const min = totalMin % 60;
+  return (hour + ':' + min);
+};
+
 //const setParam = (name) => {};
 
 // Должно выполняться при запуске приложения
 const startApp = () => {
   const stats = getStats();
   stats.countRuns++;
-  saveStats();
+  saveStats(stats);
 };
 
 // Запускаем отсчёт времени работы с диалогом
-const startDialog = (dialog) => {
+const startDialog = () => {
   startDialogTime = new Date();
 };
 
 // Останавливаем отсчёт времени работы с диалогом и если работали с ним достаточно, записываем в статистику
-const stopDialog = (dialog) => {
-  const duration = new Date() - startDialogTime;  // в миллисекундах
-  if (duration < 20000) return; // если меньше 20 секунд, то не считается
-  recordDataDialogs(dialog, duration);
+const stopDialog = (dialog) => {  // dialog - имя диалога
+  const sec = (new Date() - startDialogTime) / 1000;  // в секундах
+  if (sec < 20) return; // если меньше 20 секунд, то не считается
+  recordDataDialogs(dialog, sec);
 };
 
-function recordDataDialogs(name, duration) {
+function recordDataDialogs(name, sec) {
   const stats = getStats();
-  stats.workingTime += duration;
+  stats.workingTime += Math.floor(sec / 60);
   const dialogs = stats.dialogs
   stats.dialogs = addInfoDialogs(name, dialogs);
   stats.countDialogs = stats.dialogs.length;
@@ -50,7 +56,7 @@ function addInfoDialogs(name, dialogs) {
     }
   }
   dialogs.push({name, count: 1});
-  return dialogs; // в пердыдущей строке нельзя return, т.к. возвращается длина массива  
+  return dialogs; // в пердыдущей строке нельзя return, т.к. возвращается длина массива
 }
 
 
@@ -72,9 +78,9 @@ function fetchStats() {
   }
 }
 
-
 export default {
   getStats,
+  formatPeriod,
   startApp,
   startDialog,
   stopDialog

@@ -7,6 +7,7 @@ import './css/Stats.css';
 
 const Stats = (props) => {
   const {countRuns, workingTime, countDialogs} = dataStats.getStats();
+  const time = dataStats.formatPeriod(workingTime);
   return (
     <div id="StatsUl">
       <TopMnu>
@@ -14,10 +15,10 @@ const Stats = (props) => {
           <TopMnuItem img={clean} alt="clean" onClick={props.gotoStart} />
       </TopMnu>
       <div className="title"> Статистика использования </div>
-      <Item name="Количество запусков приложения: " value={countRuns} /> 
-      <Item name="Общее время работы с диалогами: " value={workingTime} /> 
+      <Item name="Количество запусков приложения: " value={countRuns} />
+      <Item name="Общее время работы с диалогами: " value={time} />
       <Item name="Количество проработанных диалогов: " value={countDialogs} />
-    </div> 
+    </div>
   );
 }
 
@@ -30,5 +31,3 @@ const Item = (item) => (
 
 
 export default Stats;
-
-

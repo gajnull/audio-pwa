@@ -40,13 +40,13 @@ class Dialog extends React.Component {
               .then(transl => { this.setState({transl}) });
     }
     player.loadSettings();
-    dataStats.start(this.props.file);
+    dataStats.startDialog();
   }
 
   componentWillUnmount() {
     player.unload();
     dataTxt.unload();  // возможно потом это надо занести в зарузку с проверкой на смену файла
-    dataStats.stop();
+    dataStats.stopDialog(this.props.file.name);
   }
 
   setPlayStatus(isPlay) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { loadFiles } from './data/dataFiles';
 import dataSettings from './data/dataSettings';
+import dataStats from './data/dataStats';
 import player from './data/player';
 import './reset.css'; // попробовать это убрать
 import './App.css';
@@ -30,6 +31,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     loadFiles().then( files => { this.setState({files}) });
+    dataStats.startApp();
   }
 /*
   showMnu(isShow) { // пока не используется
