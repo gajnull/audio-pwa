@@ -71,7 +71,8 @@ export default class App extends React.Component {
             main = <Settings setMetod={this.setMetod} metod={this.state.metod}
               gotoBack={() => {this.gotoPage(this.pageBefore)}} />;
     if (this.state.page === 'statistic')
-            main = <Stats gotoStart={() => this.gotoPage('start')} />;
+            main = <Stats gotoStart={() => this.gotoPage('start')} 
+              restartStats={() => this.gotoPage('statistic')} />;
 
     const menu = this.state.mnu ?
               <BottomMnu activeMetod={this.state.metod}

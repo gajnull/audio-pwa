@@ -1,7 +1,7 @@
 
 const zeroStats = {
   countRuns: 0,
-  workingTime: 0, // в минутах
+  workingTime: 0, // в секундах
   countDialogs: 0,
   dialogs: [] // {name, count}
 };
@@ -12,10 +12,22 @@ const getStats = () => {
   return fetchStats() || zeroStats;
 };
 
-const formatPeriod = (totalMin) => {
-  const hour = Math.floor(totalMin / 60);
+const clearAllData = () => {
+  saveStats(zeroStats);
+};
+
+const formatPeriod = (totalSec) => {
+  const sec = totalSec % 60;
+  const totalMin = Math.floor(totalSec / 60);
   const min = totalMin % 60;
-  return (hour + ':' + min);
+  const hour = Math.floor(totalMin / 60);
+  let res = sec;
+  if  (sec < 10) res = '0' + res; 
+  res = min + ':' + res;
+  if  (min < 10) res = '0' + res;  
+  res = hour + ':' + res;
+  if  (hour < 10) res = '0' + res;  
+  return res;
 };
 
 //const setParam = (name) => {};
@@ -41,7 +53,7 @@ const stopDialog = (dialog) => {  // dialog - имя диалога
 
 function recordDataDialogs(name, sec) {
   const stats = getStats();
-  stats.workingTime += Math.floor(sec / 60);
+  stats.workingTime += Math.round(sec);
   const dialogs = stats.dialogs
   stats.dialogs = addInfoDialogs(name, dialogs);
   stats.countDialogs = stats.dialogs.length;
@@ -80,6 +92,7 @@ function fetchStats() {
 
 export default {
   getStats,
+  clearAllData,
   formatPeriod,
   startApp,
   startDialog,

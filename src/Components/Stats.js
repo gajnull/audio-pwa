@@ -8,11 +8,12 @@ import './css/Stats.css';
 const Stats = (props) => {
   const {countRuns, workingTime, countDialogs} = dataStats.getStats();
   const time = dataStats.formatPeriod(workingTime);
+  const clear = () => { dataStats.clearAllData(); props.restartStats()};
   return (
     <div id="StatsUl">
       <TopMnu>
           <TopMnuItem img={home} alt="home" onClick={props.gotoStart} />
-          <TopMnuItem img={clean} alt="clean" onClick={props.gotoStart} />
+          <TopMnuItem img={clean} alt="clean" onClick={clear} />
       </TopMnu>
       <div className="title"> Статистика использования </div>
       <Item name="Количество запусков приложения: " value={countRuns} />
