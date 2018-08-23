@@ -70,13 +70,13 @@ function playFromBegin() {
 
 player.loadSettings = () => {
   ({countRepeat, speed, ratePause, metod} = dataSettings.getPlayerSettings());
-  audio.defaultPlaybackRate = speed;
+  audio.playbackRate = speed;
 }
 
 function play() {
   audio.currentTime = _from;
   audio.play();
-  const durationPlay = (_to - _from) * 1000;
+  const durationPlay = (_to - _from) * 1000 / speed;
   timerPlay =  setTimeout(next, durationPlay);
 }
 
