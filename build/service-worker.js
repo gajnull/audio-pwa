@@ -1,13 +1,13 @@
 "use strict";
 var precacheConfig = [
     [
-      "/index.html", "6144b7c4e01b8e8b38f33f69978c90a0"
+      "/index.html", "4521efe541d8c02aa719c5d712ff8f01"
     ],
     [
       "/static/css/main.4a4d2274.css", "bd213332c07bcd2f6e1708ffcf7f986d"
     ],
     [
-      "/static/js/main.c5cf3128.js", "f16e2b42fdea5fa7d1431d94969df075"
+      "/static/js/main.effff50a.js", "2ccda401770ff7f0ebbbc49f26676777"
     ],
     [
       "/static/media/clean.81a72695.png", "81a726956fa9286361e0b122f5505727"
@@ -29,7 +29,7 @@ var precacheConfig = [
     ["/data/Zamjat_1_2.lngt", "a63b6af4fe8fa4c78a115ed046eceb04"],
     ["/data/Zamjat_1_2.mp3", "a63b6af4fe8fa4c78a115ed046eceb05"],
     ["/data/Zamjat_1_3.lngt", "a63b6af4fe8fa4c78a115ed046eceb06"],
-    ["/data/Zamjat_1_3.mp3", "a63b6af4fe8fa4c78a115ed046eceb07"]      
+    ["/data/Zamjat_1_3.mp3", "a63b6af4fe8fa4c78a115ed046eceb07"]
   ],
   cacheName = "sw-precache-v3-sw-precache-webpack-plugin-" + (self.registration
     ? self.registration.scope
