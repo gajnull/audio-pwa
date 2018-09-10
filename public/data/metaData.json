@@ -1,5 +1,7 @@
 [
-  { "name": "Замяткин, часть 1", "txt": "Zamjat_1_1.lngt", "transl": "Zamjat_1_1.ru.lngt", "audio": "Zamjat_1_1.mp3" },
-  { "name": "Замяткин, часть 2", "txt": "Zamjat_1_2.lngt", "audio": "Zamjat_1_2.mp3" },
-  { "name": "Замяткин, часть 3", "txt": "Zamjat_1_3.lngt", "audio": "Zamjat_1_3.mp3" }
+  { "name": "In the aeroport", "dir": "01_In_the_aeroport", "lngt": "aeroport.lngt", "transl": "aeroport.transl", "audio": "aeroport.mp3" },
+  { "name": "On the plane", "dir": "02_On_the_plane", "lngt": "plane.lngt", "transl": "plane.transl", "audio": "plane.mp3" },
+  { "name": "At the supermarket", "dir": "03_At_the_supermarket", "lngt": "supermarket.lngt", "transl": "supermarket.transl", "audio": "supermarket.mp3" },
+  { "name": "At the department store", "dir": "04_At_the_department_store", "lngt": "department_store.lngt", "transl": "department_store.transl", "audio": "department_store.mp3" },
+  { "name": "Talking to a Bus Driver", "dir": "05_Talking_to_a_Bus_Driver", "lngt": "bus.lngt", "transl": "bus.transl", "audio": "bus.mp3" }
 ]
