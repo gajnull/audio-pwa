@@ -29,14 +29,17 @@ class Dialog extends React.Component {
     player.setGotoNextFn(this.nextPoz.bind(this));  // возможность для плеера переходить к слудующему участку
     player.onSetPlayStatus(this.setPlayStatus.bind(this));
 
-    player.load(this.props.file.audio);
+    const pathAudio = this.props.file.dir + '/' + this.props.file.audio;
+    player.load(pathAudio);
   }
 
   componentDidMount() {
-    dataTxt.loadLngt(this.props.file.txt)  // т.к. в this._gotoPoz() используется setState
+    const pathLngt = this.props.file.dir + '/' + this.props.file.lngt;
+    dataTxt.loadLngt(pathLngt)  // т.к. в this._gotoPoz() используется setState
             .then( () => { this._gotoPoz() });
+    const pathTransl = this.props.file.dir + '/' + this.props.file.transl;
     if (this.props.file.transl) {
-      dataTxt.loadTransl(this.props.file.transl)
+      dataTxt.loadTransl(pathTransl)
               .then(transl => { this.setState({transl}) });
     }
     player.loadSettings();
