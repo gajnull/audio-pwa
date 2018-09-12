@@ -16,3 +16,7 @@
 .empty-dlg {
   flex: 1;
 }
+
+.items-dlg span{
+  white-space: pre-wrap;
+}

@@ -17,15 +17,19 @@ const styleTtranl = {
   color: 'blue'
 };
 
+  // whiteSpace: 'pre-wrap' установлен в Dialog.css
+
 const ItemDialog = ({txt, active, translate, onClick}) => {
 
   let style = styleAround;
   if (active) style = styleActive;
   if (translate) style = styleTtranl;
 
-  return (
+  return <span  style={style} onClick={onClick}> {txt} </span>;
+
+/*  return (
     <span  dangerouslySetInnerHTML = {{__html: txt}} style={style} onClick={onClick} />
-  );
+  );*/
 
 }
 
