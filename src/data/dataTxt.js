@@ -2,13 +2,6 @@ const path = 'data/';
 let data = [];
 let transl = [];
 
-// .then()
-/*const loadLngt= (file) => {
-  return  loadFile(file).then((elem) => {
-      data = extractLngt(elem);
-      return true;
-    });
-};*/
 
 const loadLngt = (file) => {
   return fetch(path + file).then(response => response.json())
@@ -16,53 +9,11 @@ const loadLngt = (file) => {
           .catch( err => err );
 }
 
-/*
-const loadTransl = (file) => {
-  return  loadFile(file).then((elem) => {
-      transl = extractTransl(elem);
-      return getTransl();
-    });
-};*/
-
 const loadTransl = (file) => {
   return fetch(path + file).then(response => response.json())
           .then(json => transl = json).then(() => getTransl())
           .catch( err => err );
 };
-
-
-/*
-function loadFile(file) {
-  return fetch(path + file)
-    .then( response => {
-      return response.text();
-    })
-    .then(function(content) {
-      //const data = document.createDocumentFragment();
-      const elem = document.createElement('DIV');
-      elem.innerHTML = content; // нужно из-за дальнейшего применения textContent
-      return elem;
-    })
-    .catch( err => err );
-}*/
-/*
-function extractLngt(elem) {
-  const spans = elem.querySelectorAll('span[from][to]');
-  spans.forEach( span => {
-    data.push({txt: span.innerHTML, //textContent,
-              _from: span.getAttribute('from'),
-              _to: span.getAttribute('to') });
-  });
-  return data;
-}*/
-/*
-function extractTransl(elem) {
-  const spans = elem.querySelectorAll('span[from][to]');
-  spans.forEach( span => {
-    transl.push(span.innerHTML);
-  });
-  return transl;
-}*/
 
 
 const getItems = (poz = 0) => {
