@@ -15,7 +15,6 @@ const loadTransl = (file) => {
           .catch( err => err );
 };
 
-
 const getItems = (poz = 0) => {
   var before = "",
       current = "",
@@ -43,20 +42,15 @@ const isLastPoz = (poz = 0) => {
   return false;
 };
 
-const getAllItems = (kind = 'fullOrigin') => {
-  let fullData = [];
-  if (kind = 'fullOrigin') {
-    fullData = data;
-    
-  }
-  if (kind = 'fullTransl') {
-    fullData = data.map((item, index) => {
-      return {txt: transl[index], value: item.txt , ...item};  
+const getAllItems = () => {
+  const isTransl = (transl.length === 0);
+  if (isTransl) {
+    return data.map((item, index) => {
+      return {transl: transl[index], ...item};
     });
   }
-  return fullData;
-}
-
+  return data;
+};
 
 const unload = () => {
   data = [];
@@ -71,5 +65,6 @@ export default {
   getItems,
   getTransl,
   isLastPoz,
+  getAllItems,
   unload
 };

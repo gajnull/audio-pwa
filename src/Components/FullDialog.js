@@ -11,7 +11,7 @@ class FullDialog extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
                   isPlay: false,
                   items: []
                  };
@@ -28,13 +28,11 @@ class FullDialog extends React.Component {
 
   componentDidMount() {
     const pathLngt = this.props.file.dir + '/' + this.props.file.lngt;
-    dataTxt.loadLngt(pathLngt)  // т.к. в this._gotoPoz() используется setState
-            .then( () => { this._gotoPoz() });
     const pathTransl = this.props.file.dir + '/' + this.props.file.transl;
-    if (this.props.file.transl) {
-      dataTxt.loadTransl(pathTransl)
-              .then(transl => { this.setState({transl}) });
-    }
+    dataTxt.loadLngt(pathLngt)
+            .then(() => { dataTxt.loadTransl(pathTransl) })
+            .then(() => { this.setState({items: dataTxt.getAllItems()}) });
+
     player.loadSettings();
     dataStats.startDialog();
   }
@@ -61,31 +59,21 @@ class FullDialog extends React.Component {
     player.toogle();
   }
 
-  _gotoPoz() {
-    const { before, current, after, _from, _to } =  dataTxt.getItems(this.poz);
-    const transl = dataTxt.getTransl(this.poz);
-    player.range(_from, _to);
-    this.setState({ before, current, after, transl });
-  }
-
   render() {
-    const {gotoStart, isTransl} = this.props;
+    const {gotoStart, isTransl, kind} = this.props;
     //player.settings(settings);
     return (
       <div className="fullDialog">
         <TopMnu gotoHome={gotoStart} gotoBegin={this.toBegin}
                 tooglePlay={this.handleTooglePlay} isPlay={this.state.isPlay} />
         <div className="items-dlg">
-          <div className="empty-dlg" onClick={this.handlePlayBefore} ></div>
-          <div>
-            <ItemDialog txt={this.state.before} onClick={this.handlePlayBefore} />
-            <ItemDialog txt={this.state.current} active onClick={this.handleTooglePlay} />
-            { isTransl &&
-              <ItemDialog txt={this.state.transl} translate onClick={this.handleTooglePlay} />
-            }
-            <ItemDialog txt={this.state.after} onClick={this.handlePlayAfter} />
-          </div>
-          <div className="empty-dlg" onClick={this.handlePlayAfter} ></div>
+          {
+            this.state.items.map((item) => {
+              <ItemDialog key={item.from} item={item}
+                kind={this.props.kind}
+                onClick={() => this.handleTooglePlay(item.from, item.to)} />
+            })
+          }
         </div>
       </div>
     );
