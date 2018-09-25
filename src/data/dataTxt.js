@@ -38,11 +38,24 @@ const getTransl = (poz = 0) => {
   return (transl.length === 0) ? null : transl[poz];
 };
 
-
 const isLastPoz = (poz = 0) => {
   if (poz === data.length - 1) return true;
   return false;
 };
+
+const getAllItems = (kind = 'fullOrigin') => {
+  let fullData = [];
+  if (kind = 'fullOrigin') {
+    fullData = data;
+    
+  }
+  if (kind = 'fullTransl') {
+    fullData = data.map((item, index) => {
+      return {txt: transl[index], value: item.txt , ...item};  
+    });
+  }
+  return fullData;
+}
 
 
 const unload = () => {

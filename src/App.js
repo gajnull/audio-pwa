@@ -7,6 +7,7 @@ import './reset.css'; // попробовать это убрать
 import './App.css';
 import Start from './Components/Start';
 import Dialog from './Components/Dialog';
+import FullDialog from './Components/FullDialog';
 import Settings from './Components/Settings';
 import Stats from './Components/Stats';
 import BottomMnu from './Components/BottomMnu';
@@ -15,7 +16,8 @@ import BottomMnu from './Components/BottomMnu';
 export default class App extends React.Component {
 
   state = {
-    page: 'start',  // page: 'start'/'dialog'/'settings'/'statistics'
+    page: 'start',  // page: 'start'/'dialog'/'fullDialog'/'settings'/'statistics'
+    kindDialog: 'dialog',  //dialog, fullOrigin, fullTransl
     mnu: true,  // показывать нижнее меню
     metod: dataSettings.initSettings(),
     files: []
@@ -27,6 +29,7 @@ export default class App extends React.Component {
     this.gotoPage = this.gotoPage.bind(this);
     this.selectDialog = this.selectDialog.bind(this);
     this.setMetod = this.setMetod.bind(this);
+    this.setKindDialog = this.setKindDialog.bind(this);
   }
 
   componentDidMount() {
@@ -46,7 +49,7 @@ export default class App extends React.Component {
   gotoPage(page) {
     this.pageBefore = this.state.page;
     let mnu = true;
-    if (page === 'statistic') mnu = false;
+    if (page === 'statistic' || page === 'fullDialog') mnu = false;
     this.setState({page, mnu});
   }
 
@@ -56,6 +59,10 @@ export default class App extends React.Component {
     player.loadSettings(); // на случай, если метод меняется через BottomMnu
     this.setState({metod});
   }
+
+  setKindDialog(kind) {
+    this.setState({kindDialog: kind});
+  } 
 
 
   render() {
@@ -67,6 +74,10 @@ export default class App extends React.Component {
             main = <Dialog file={this.state.files[this.ind]}
               gotoStart={() => this.gotoPage('start')}
               setPlayStatus={this.setPlayStatus} isTransl={isTransl} />;
+    if (this.state.page === 'fullDialog')
+            main = <FullDialog file={this.state.files[this.ind]}
+              gotoStart={() => this.gotoPage('start')}
+              setPlayStatus={this.setPlayStatus} kindDialog={this.state.kindDialog} />;
     if (this.state.page === 'settings')
             main = <Settings setMetod={this.setMetod} metod={this.state.metod}
               gotoBack={() => {this.gotoPage(this.pageBefore)}} />;
@@ -77,7 +88,7 @@ export default class App extends React.Component {
     const menu = this.state.mnu ?
               <BottomMnu activeMetod={this.state.metod}
                 isSettings={this.state.page === 'settings'}
-                setMetod={this.setMetod}
+                setKindDialog = {this.setKindDialog}
                 gotoSettings={() => {this.gotoPage('settings')}} />
                 : null;
 
